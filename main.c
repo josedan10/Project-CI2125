@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "headers/Header.h"
+#include "headers/menus.h"
 
 void ConsultaCasilla(coordenada){ //(Personaje que la está ocupando y sus detalles, items en el
                                   //suelo, efecto y tiempo restante)
