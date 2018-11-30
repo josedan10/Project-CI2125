@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "headers/Header.h"
 
 void ConsultaCasilla(coordenada){ //(Personaje que la está ocupando y sus detalles, items en el
                                   //suelo, efecto y tiempo restante)
@@ -10,18 +11,7 @@ int main(){
 
     //Cada vez que sea turno del jugador humano se desplegará el siguiente menú de opciones:
     do{
-        printf("\n1. Mostrar tablero\n"
-               "2. Consultar casilla\n"
-               "3. Atacar\n"
-               "4. Moverse\n"
-               "5. Usar habilidad\n"
-               "6. Usar item\n"
-               "7. Terminar turno\n"
-               "8. Inventario\n"
-               "9. Menú sistema\n"
-               "\nSelecciona una opcion: ");
-
-        scanf("%i", &opc);
+		opc = mostrarMenuPrincipal();
 
         switch(opc){
 
