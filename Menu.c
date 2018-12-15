@@ -15,14 +15,14 @@ int main(){
 
         switch(opc){
 
-            case 1: printf("ABCDEFGHIJKLMNOPQRST");
-                    printf("ASCII 176"); //default, no asi en comillas
+            case 1: //printf("ABCDEFGHIJKLMNOPQRST");
+                    //"ASCII 176"; default
 
                     break;
             case 2: printf("\n\nIngrese una coordenada: ");
-                    scanf("",);
+                    //scanf("",); coordenada
 
-                    ConsultaCasilla(coordenada);
+                    //ConsultaCasilla(coordenada);
 
                     break;
             case 3: printf("\n\nIngrese una coordenada: ");
@@ -36,13 +36,7 @@ int main(){
             case 7: printf("\n\n*********Fin del turno.**********\n\n");
                     break;
             case 8: do{
-                        printf("\n\n1. Recoger item"
-                       "\n2. Soltar item"
-                       "\n3. Equipar item"
-                       "\n4. Consultar tope"
-                       "\n5. Volver"
-                       "\nSelecciona una opcion: ");
-                        scanf("%i", &opcinv);
+                        opcinv = mostrarMenuItems();
 
                         switch(opcinv){
 
@@ -54,18 +48,13 @@ int main(){
                                     break;
                             case 4: //imprime tope inventario
                                     break;
-                            case 5: break; //done
+                            case 5: break; //listo
                         }
                     } while(opcinv < 1 || opcinv > 5);
 
                     break;
             case 9: do{
-                        printf("\n\n1. Guardar"
-                       "\n2. Cargar"
-                       "\n3. Volver"
-                       "\n4. Salir"
-                       "\nSelecciona una opcion: ");
-                        scanf("%i", &opcsist);
+                        opcsist = mostrarMenuSistema();
 
                         switch(opcsist){
 
@@ -74,7 +63,7 @@ int main(){
                             case 2: //abrir archivo
                                     break;
                             case 3: //listo
-                            case 4: break; //done
+                            case 4: break; //listo
                         }
 
                     } while(opcsist < 1 || opcsist > 4);
