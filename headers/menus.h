@@ -1,5 +1,15 @@
+#include <stdio.h>
+
+unsigned short iniciarJuego () {
+	unsigned short players;
+	printf("Introduzca el numero de jugadores: ");
+	scanf("%hu", &players);
+
+	return players;
+}
+
 int mostrarMenuPrincipal() {
-	short opc;
+	unsigned short opc;
 
 	printf("\n1. Mostrar tablero\n"
 		   "2. Consultar casilla\n"
@@ -9,17 +19,16 @@ int mostrarMenuPrincipal() {
 		   "6. Usar item\n"
 		   "7. Terminar turno\n"
 		   "8. Inventario\n"
-		   "9. Menú sistema\n"
+		   "9. Menï¿½ sistema\n"
 		   "\nSelecciona una opcion: ");
 
-	scanf("%i", &opc);
+	scanf("%hu", &opc);
 
 	return opc;
-
 }
 
 int mostrarMenuItems(){
-	short opc;
+	unsigned short opc;
 
 	printf("\n\n1. Recoger item"
 		   "\n2. Soltar item"
@@ -28,14 +37,14 @@ int mostrarMenuItems(){
 		   "\n5. Volver"
 		   "\nSelecciona una opcion: ");
 
-	scanf("%i", &opc);
+	scanf("%hu", &opc);
 
 	return opc;
 
 }
 
 int mostrarMenuSistema(){
-	short opc;
+	unsigned short opc;
 
 	printf("\n\n1. Guardar"
 		   "\n2. Cargar"
@@ -43,8 +52,7 @@ int mostrarMenuSistema(){
 		   "\n4. Salir"
 		   "\nSelecciona una opcion: ");
 
-	scanf("%i", &opc);
+	scanf("%hu", &opc);
 
 	return opc;
-
 }
