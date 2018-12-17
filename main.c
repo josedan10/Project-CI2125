@@ -33,16 +33,16 @@ int main(){
         free(character);
     }
 
-    if (isFree(map, createCord('A', 3))) printf("\nEsta casilla esta desocupada\n");
+    if (isFree(map, createCord('A', 1))) printf("\nEsta casilla esta desocupada\n");
     else printf("\nEsta casilla esta ocupada\n");
 
     addItemToInventory (turns->chars[0], createEnergyPotion());
     addItemToInventory (turns->chars[0], createHealthPotion());
-    map->cols[0]->lands[2]->character = turns->chars[0];
+    map->cols[0]->lands[0]->character = turns->chars[0];
 
-    land = map->cols[0]->lands[2];
+    land = map->cols[0]->lands[0];
 
-    if (isFree(map, createCord('A', 3))) printf("\nEsta casilla esta desocupada\n");
+    if (isFree(map, createCord('A', 1))) printf("\nEsta casilla esta desocupada\n");
     else printf("\nEsta casilla esta ocupada\n");
 
 
@@ -60,7 +60,9 @@ int main(){
             break;
     }
 
-    attack(turns->chars[0], map, createCord('A', 3), turns->chars[0]->skills[0]->skill);
+    turns->chars[0]->aP = 20;
+
+    useSkill(turns->chars[0], map, createCord('A', 1), turns->chars[0]->skills[0]->skill);
 
 
     // clearAndPrintMenu(mostrarMenuPrincipal);

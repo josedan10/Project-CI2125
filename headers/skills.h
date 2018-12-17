@@ -47,7 +47,7 @@ Skill* createRestoreSkill(){             //Cura el 30% de los puntos de salud de
     return skill;
 }
 
-Skill *createSkillElectrocute(){         //Electrifica la casilla objetivo y elimina el 50% de la cantidad de puntos de energ�a TOTAL
+Skill *createElectrocuteSkill(){         //Electrifica la casilla objetivo y elimina el 50% de la cantidad de puntos de energ�a TOTAL
                                 //del personaje parado sobre el terreno objetivo
     Skill *skill = (Skill *) malloc(sizeof(Skill));
     strcpy(skill->name, "Electrocutar");
@@ -96,4 +96,9 @@ unsigned short skillCostsValidator (Character *C, Skill *skill) {
 
   // If this return 1 you can attack  
   return (C->aP > skill->actionCost && C->eP > skill->energyCost);
+}
+
+void reducePoints (Character *C, Skill *skill) {
+  C->aP -= skill->actionCost;
+  C->eP -= skill->energyCost;
 }

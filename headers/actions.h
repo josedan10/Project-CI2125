@@ -54,7 +54,7 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
 
 // }
 
-void attack (Character *attacker, Map *map, Cord *cord, Skill *skill) {
+void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
   // Primero se verifica que esté en el rango de ataque.
   // Para es la función isInRange
@@ -69,5 +69,7 @@ void attack (Character *attacker, Map *map, Cord *cord, Skill *skill) {
     return;
   }
 
-  printf("Atacaste");  
+  skill->effect(getLandWithCord(map, cord));
+  reducePoints(attacker, skill);
+  printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
 }

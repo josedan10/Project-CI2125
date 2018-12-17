@@ -80,20 +80,21 @@ int hab;
     case 2:
       printf("\nElegiste 'incendiar'.\n");
       // Crear nueva habilidad
+      addToSkills(newChar, createFireSkill());
 
       break;
     
     case 3:
       printf("\nElegiste 'restaurar'.\n");
-
       // Crear nueva habilidad
+      addToSkills(newChar, createRestoreSkill());
 
       break;
     
     case 4:
       printf("\nElegiste 'electrocutar'.\n");
-
       // Crear nueva habilidad
+      addToSkills(newChar, createElectrocuteSkill());
 
       break;
     
