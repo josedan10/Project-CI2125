@@ -30,7 +30,8 @@ int main(){
     Item *item = createEnergyPotion();
     addItemsToInventory(turns->chars[0], item);
 
-    // (*turns->chars[0]->items)->effect();
+    printf("\nNombre de la Poción: %s", (*turns->chars)->items->item->name);
+    (*turns->chars)->items->item->effect((*turns->chars));
 
     // clearAndPrintMenu(mostrarMenuPrincipal);
 

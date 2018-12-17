@@ -20,6 +20,7 @@ Item* createHealthPotion () {
 void restoreEnergy(Character *C) {
 
   C->eP += C->eP * 0.3;
+  printf("\n\nUsaste una pocion de energia");
 }
 
 Item* createEnergyPotion () {
