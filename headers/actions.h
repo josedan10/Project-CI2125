@@ -132,7 +132,10 @@ void moveCharacterToCords(Map* map, Cord *actualCords, Cord *destinyCords) {
   if (isFree(map, destinyCords)) {
 
     changeCharacterPosition(map->cols[destinyCords->col - ASCII_A]->lands[destinyCords->row]->character, getLandWithCord(map, destinyCords));
-    getLandWithCord(map, actualCords)->character = NULL;
+
+    if (actualCords != NULL)
+      getLandWithCord(map, actualCords)->character = NULL;
+      
     printf("\n\nDesplazamiento realizado a las coordenadas (%c, %hu).\n", destinyCords->col, destinyCords->row);
 
   } else {

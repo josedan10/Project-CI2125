@@ -19,21 +19,33 @@
 
 int main(){
 
-    CharsListR turns;
     Character *character;
     Land *land;
+    Cord *randomCord;
+    CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
+
+    srand(time(NULL));
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
-    turns = createNewCharsListR(startGame());
-
     for (int i = 0; i < turns->capacity; i++) {
+
+        printf("Jugador %d/%d", i + 1, turns->capacity);
 
         character = createNewCharacter(i);
         queuePlayer(character, turns);
+
+        // Random positions for players
+        do {
+            randomCord = createCord(65 + rand() % ((65 + 19) + 1 - 65), 1 + rand() % (10 + 1 - 1));
+
+        } while (!isFree(map, randomCord));
+
+        moveCharacterToCords(map, NULL, randomCord);
         free(character);
     }
+
 
     if (isFree(map, createCord('A', 1))) printf("\nEsta casilla esta desocupada\n");
     else printf("\nEsta casilla esta ocupada\n");
