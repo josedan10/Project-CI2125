@@ -1,14 +1,25 @@
 #include <stdlib.h>
 #include <time.h> 
 
-struct land;
-struct listItems;
-struct character;
+typedef struct item {
+	char name[32];
+	unsigned int cost;
+	unsigned int range;
+	void(*efecto)();
+} Item;
+
+typedef struct itemNode {
+	Item item;
+	struct itemNode *next;
+} ItemNode;
+
+typedef ItemNode *ListItems;
+typedef ItemNode *HeapItems;
 
 typedef struct land {
 	struct character *character;
-	void(*efect)(struct land *);
-	struct listItems *items;
+	void(*efect)();
+	ListItems *items;
 } Land;
 
 typedef struct skill {
@@ -16,7 +27,7 @@ typedef struct skill {
 	unsigned short energyCost;
 	unsigned short actionCost;
 	unsigned short range;
-	void(*effect)(struct Land *);
+	void(*effect)();
 
 } Skill;
 
@@ -27,21 +38,6 @@ typedef struct skillNode {
 } SkillNode;
 
 typedef SkillNode *SkillsList;
-
-typedef struct item {
-	char name[32];
-	unsigned int cost;
-	unsigned int range;
-	void(*efecto)(Land *);
-} Item;
-
-typedef struct itemNode {
-	Item *item;
-	struct itemNode *next;
-} ItemNode;
-
-typedef ItemNode *ListItems;
-typedef ItemNode *HeapItems;
 
 typedef struct character {
 
@@ -58,3 +54,14 @@ typedef struct character {
 	unsigned short playerId;
 
 } Character;
+
+typedef struct charsListC {
+	unsigned short tam;
+	unsigned short alfa;
+	unsigned short omega;
+	Character **chars;
+	unsigned short capacity;
+
+} CharsListC;
+
+typedef CharsListC *CharsListR;

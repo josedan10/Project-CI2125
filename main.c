@@ -2,24 +2,27 @@
 #include <stdlib.h>
 #include "headers/menus.h"
 #include "headers/constructors.h"
+#include "headers/actions.h"
 
 // SO {1: Windows, 2: Linux}
 #define SO 1
 
 int main(){
 
-    unsigned short players;
+    CharsListR turnos;
     Character *character;
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
-    players = iniciarJuego();
+    turnos = createNewCharsListR(startGame());
 
-    // for (int i = 0; i < players; i++) {
+    for (int i = 0; i < turnos->capacity; i++) {
 
-    // }
+        character = createNewCharacter(i);
+        queuePlayer(character, turnos);
+        free(character);
+    }
 
-    character = createNewPlayer(1);
 
     #if SO == 1
         system("PAUSE");

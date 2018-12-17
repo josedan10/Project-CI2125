@@ -1,13 +1,5 @@
 #include <stdio.h>
 
-unsigned short iniciarJuego () {
-	unsigned short players;
-	printf("Introduzca el numero de jugadores: ");
-	scanf("%hu", &players);
-
-	return players;
-}
-
 int mostrarMenuPrincipal() {
 	unsigned short opc;
 
