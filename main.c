@@ -40,6 +40,8 @@ int main(){
 
     addItemToInventory (turns->chars[0], createEnergyPotion());
     addItemToInventory (turns->chars[0], createHealthPotion());
+
+    Item *item = getTopItemFromInventory(turns->chars[0]->items);
     map->cols[0]->lands[0]->character = turns->chars[0];
     map->cols[1]->lands[1]->character = turns->chars[1];
 

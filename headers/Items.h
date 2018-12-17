@@ -62,3 +62,7 @@ void nullGrenade(Land *land) {
   // Delete itemNode
   popItem(land->character->items);
 }
+
+Item* getTopItemFromInventory(HeapItems *items) {
+  return (*items)->item;
+}

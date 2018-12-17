@@ -40,6 +40,12 @@ unsigned short isInRange(Cord *target, Cord *cord, unsigned short range) {
 
 }
 
+void useItem (Character *attacker, Land *land) {
+  getTopItemFromInventory(attacker->items);
+}
+
+
+// Review optimization
 void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
   // Primero se verifica que esté en el rango de ataque.
