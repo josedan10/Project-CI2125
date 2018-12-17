@@ -42,3 +42,23 @@ Item* createEnergyPotion () {
 
   return energyPotion;
 }
+
+Item* createNullGrenade () {
+  Item *nullGrenade = (Item *) malloc(sizeof(Item));
+
+
+  strcpy(nullGrenade->name, "Granada nulificadora");
+  nullGrenade->range = 5;
+  nullGrenade->cost = 5;
+  nullGrenade->effect = none;
+
+  return nullGrenade;
+}
+
+void nullGrenade(Land *land) {
+  land->effect = none;
+  printf("\n\nUsaste una granada nulificadora");
+
+  // Delete itemNode
+  popItem(land->character->items);
+}

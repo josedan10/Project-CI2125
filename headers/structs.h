@@ -13,9 +13,13 @@ typedef struct itemNode {
 typedef ItemNode *ListItems;
 typedef ItemNode *HeapItems;
 
+typedef enum typeEffect{
+	none, typeFire, typeFreeze, typeElectrocute
+} TypeEffect;
+
 typedef struct land {
 	struct character *character;
-	void(*effect)();
+	TypeEffect effect;
 	ListItems items;
 } Land;
 

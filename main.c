@@ -7,12 +7,12 @@
 #include "headers/soHelpers.h"
 #include "headers/structs.h"
 #include "headers/effects.h"
-#include "headers/menus.h"
 #include "headers/skills.h"
 #include "headers/characters.h"
 #include "headers/land.h"
 #include "headers/map.h"
 #include "headers/items.h"
+#include "headers/menus.h"
 #include "headers/actions.h"
 
 int main(){
@@ -60,9 +60,11 @@ int main(){
             break;
     }
 
+    seeLand(map, createCord('A', 1));
+
     turns->chars[0]->aP = 20;
 
-    useSkill(turns->chars[0], map, createCord('A', 1), turns->chars[0]->skills[0]->skill);
+    // useSkill(turns->chars[0], map, createCord('A', 1), turns->chars[0]->skills[0]->skill);
 
 
     // clearAndPrintMenu(mostrarMenuPrincipal);

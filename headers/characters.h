@@ -1,11 +1,19 @@
 void showCharacterDetails (Character *C) {
-  printf("\nEstadisticas:\n");
-  printf("%s\n", C->name);
-  printf("HP: %d\n", C->hP);
-  printf("Evasion: %d\n", C->evasion);
-  printf("Armadura: %d\n", C->armor);
-  printf("Velocidad: %d\n", C->velocity);
-  printf("Dano: %d\n", C->damage);
+
+  if (C != NULL) {
+
+    // printf("\nEstadisticas:\n");
+    printf("%s\n", C->name);
+    printf("HP: %d\n", C->hP);
+    printf("Evasion: %d\n", C->evasion);
+    printf("Armadura: %d\n", C->armor);
+    printf("Velocidad: %d\n", C->velocity);
+    printf("Dano: %d\n", C->damage);
+  } else {
+    printf("No hay personaje.\n");
+  }
+
+  printf("\n");
 }
 
 CharsListR createNewCharsListR(unsigned short players) {

@@ -73,3 +73,59 @@ void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
   reducePoints(attacker, skill);
   printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
 }
+
+void printItems(ItemNode *itemNode) {
+
+  if (itemNode == NULL) {
+    printf("[ ]\n\n");
+  } else {
+    ItemNode *aux = itemNode;
+
+    printf("[ ");
+
+    while (aux->next != NULL) printf("%s, ", aux->item->name);
+
+    printf("%s ]\n\n", aux->item->name);
+
+  }
+}
+
+void printEffect(TypeEffect effect) {
+  switch (effect) {
+    case 1:
+      printf("Incendiar\n");
+      break;
+
+    case 2:
+      printf("Congelar\n");
+      break;
+    
+    case 3:
+      printf("Restaurar\n");
+      break;
+    
+    case 4:
+      printf("Electrocutar\n");
+      break;
+  }
+}
+
+void seeLand (Map *map, Cord *cord) {
+  Land *land = getLandWithCord(map, cord);
+  Character *C = land->character;
+
+  printf("\nTerreno (%hu, %c)\n\n", cord->row + 1, cord->col);
+
+  printf("Personaje\n");
+  printf("_________\n\n");
+  showCharacterDetails(C);
+
+  printf("Items\n");
+  printf("_____\n\n");
+  printItems(land->items);
+
+  printf("Efectos\n");
+  printf("_______\n\n");
+  printEffect(land->effect);
+
+}

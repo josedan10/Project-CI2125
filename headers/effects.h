@@ -14,11 +14,14 @@ void fire(Land *land) {
 
 		land->character->armor = auxArmor;
 	}
+
+	land->effect = typeFire;
 }
 
 void freeze(Land *land) {
 	// Congela al jugador y no le permite realizar ninguna acci�n.
 	land->character->aP = 0;
+	land->effect = typeFreeze;
 }	
 
 void restore(Land *land) {
@@ -29,4 +32,5 @@ void restore(Land *land) {
 void electrocute(Land *land) {
 	// Disminuye a la mitad los puntos de energía del jugador
 	land->character->eP -= ceil(land->character->eP / 2);
+	land->effect = typeElectrocute;
 }
