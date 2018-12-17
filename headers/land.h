@@ -52,10 +52,5 @@ void deleteFromLandListItems(Land *land, ItemNode *itemNode) {
 
 unsigned short isFree (Map *map, Cord *cord) {
 
-	unsigned short i, j = i = 0;
-
-	while (map->cols[i]->letter != cord->col) i++;
-	while (j < cord->row) j++;
-
-	return map->cols[i]->lands[j]->character == NULL;
+	return map->cols[cord->col - ASCII_A]->lands[cord->row]->character == NULL;
 }

@@ -38,10 +38,7 @@ Cord* createCord (char col, unsigned short row) {
 }
 
 Land* getLandWithCord (Map *map, Cord *cord) {
-  unsigned short i = 0;
-
-  while (map->cols[i]->letter != cord->col) i++;
-  return map->cols[i]->lands[cord->row];
+  return map->cols[cord->col - ASCII_A]->lands[cord->row];
 }
 
 void printMap (Map *map) {

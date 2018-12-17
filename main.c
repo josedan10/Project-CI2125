@@ -4,6 +4,8 @@
 #include <time.h>
 #include <string.h>
 
+#define ASCII_A 65
+
 #include "headers/soHelpers.h"
 #include "headers/structs.h"
 #include "headers/effects.h"
@@ -66,6 +68,8 @@ int main(){
     turns->chars[0]->aP = 20;
 
     useSkill(turns->chars[0], map, createCord('B', 2), turns->chars[0]->skills[0]->skill);
+
+    moveCharacterToCords(map, getCharacterCords(map, turns->chars[0]), createCord('B', 1));
 
 
     // clearAndPrintMenu(mostrarMenuPrincipal);

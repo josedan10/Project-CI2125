@@ -121,3 +121,16 @@ void seeLand (Map *map, Cord *cord) {
   printEffect(land->effect);
 
 }
+
+void moveCharacterToCords(Map* map, Cord *actualCords, Cord *destinyCords) {
+  if (isFree(map, destinyCords)) {
+
+    changeCharacterPosition(map->cols[destinyCords->col - ASCII_A]->lands[destinyCords->row]->character, getLandWithCord(map, destinyCords));
+    getLandWithCord(map, actualCords)->character = NULL;
+    printf("\n\nDesplazamiento realizado a las coordenadas (%c, %hu).\n", destinyCords->col, destinyCords->row);
+
+  } else {
+
+    printf("\n\nMOVIMIENTO NO PERMITIDO: No puedes moverte a estas coordenadas. Ya hay un jugador en ese lugar.\n");
+  }
+}

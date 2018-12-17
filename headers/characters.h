@@ -163,6 +163,9 @@ Cord * getCharacterCords (Map *map, Character *C) {
     i++;
   }
 
-  return cords;
-      
+  return cords;     
+}
+
+void changeCharacterPosition (Character *C, Land *land) {
+  land->character = C;
 }
