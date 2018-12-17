@@ -19,7 +19,7 @@ int main(){
 
     CharsListR turns;
     Character *character;
-    Land *land = createLand();
+    Land *land;
     Map *map = createMap();
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
@@ -33,14 +33,16 @@ int main(){
         free(character);
     }
 
-    if (isFree(land)) printf("\nEsta casilla esta desocupada\n");
+    if (isFree(map, createCord('A', 3))) printf("\nEsta casilla esta desocupada\n");
     else printf("\nEsta casilla esta ocupada\n");
 
     addItemToInventory (turns->chars[0], createEnergyPotion());
     addItemToInventory (turns->chars[0], createHealthPotion());
-    land->character = turns->chars[0];
+    map->cols[0]->lands[2]->character = turns->chars[0];
 
-    if (isFree(land)) printf("\nEsta casilla esta desocupada\n");
+    land = map->cols[0]->lands[2];
+
+    if (isFree(map, createCord('A', 3))) printf("\nEsta casilla esta desocupada\n");
     else printf("\nEsta casilla esta ocupada\n");
 
 

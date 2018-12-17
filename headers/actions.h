@@ -34,11 +34,25 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
   printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
 
-unsigned short isInRange(Land *target, Land *actualPos) {
+// unsigned short isInRange(Map *map, Land *target, Cord *cord) {
 
+//   Land *auxTarget = NULL;
+//   Land *auxActualPos = NULL;
+//   Land *auxPointer;
+//   char colLetter;
+//   unsigned short rowNum, i, j;
 
+//   while (unsigned short i = 0; i < 20; i ++) {
+//     // recorremos primero las columnas
+//     for (unsigned short j = 0; j < 10; j++) {
 
-}
+//       auxPointer = map->cols[i]->lands[j] 
+    
+//     }
+
+//   }
+
+// }
 
 void attack () {
   

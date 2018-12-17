@@ -1,12 +1,12 @@
 Col* createCol (char letter){
   Col *C = (Col *) malloc(sizeof(Col));
   C->letter = letter;
-  C->land = (Land **) malloc(sizeof(Land *) * 10);
+  C->lands = (Land **) malloc(sizeof(Land *) * 10);
 
   // agregamos los terrenos en la fila
 
   for (unsigned short j = 0; j < 10; j++) {
-    (C->land)[j] = createLand();
+    (C->lands)[j] = createLand();
   }
 
   return C;
@@ -25,4 +25,14 @@ Map* createMap() {
   }
 
   return map;
+}
+
+// Pre: col pertenece a map->letters, row > 0 y row < 10 
+
+Cord* createCord (char col, unsigned short row) {
+  Cord *cord = (Cord *) malloc(sizeof(Cord));
+  cord->col = col;
+  cord->row = --row;
+
+  return cord;
 }

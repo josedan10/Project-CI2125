@@ -65,9 +65,14 @@ typedef CharsListC *CharsListR;
 
 typedef struct col {
 	char letter;
-	Land **land;
+	Land **lands;
 } Col;
 
 typedef struct map {
 	Col **cols;
 } Map;
+
+typedef struct coord {
+	char col;
+	unsigned short row;
+} Cord;
