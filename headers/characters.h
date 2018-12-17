@@ -145,3 +145,24 @@ void popItem(HeapItems *items) {
 
   free(aux);  
 }
+
+Cord * getCharacterCords (Map *map, Character *C) {
+  unsigned short i, j = i = 0;
+  Cord * cords = NULL;
+
+  while (cords == NULL) {
+    for (j = 0; j < 10; j ++) {
+
+      if (map->cols[i]->lands[j]->character == C) {
+        cords = (Cord *) malloc(sizeof(Cord));
+        cords->col = map->cols[i]->letter;
+        cords->row = j;
+      }
+    }
+
+    i++;
+  }
+
+  return cords;
+      
+}

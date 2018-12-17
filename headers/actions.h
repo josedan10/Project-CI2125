@@ -34,29 +34,21 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
   printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
 
-// unsigned short isInRange(Map *map, Land *target, Cord *cord) {
+unsigned short isInRange(Cord *target, Cord *cord, unsigned short range) {
 
-//   Land *auxTarget = NULL;
-//   Land *auxActualPos = NULL;
-//   Land *auxPointer;
-//   char colLetter;
-//   unsigned short rowNum, i, j;
+  return range > abs(target->col - cord->col) && range > abs(target->row - cord->row);
 
-//   while (unsigned short i = 0; i < 20; i ++) {
-//     // recorremos primero las columnas
-//     for (unsigned short j = 0; j < 10; j++) {
-
-//       auxPointer = map->cols[i]->lands[j] 
-    
-//     }
-
-//   }
-
-// }
+}
 
 void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
   // Primero se verifica que esté en el rango de ataque.
+
+  if (!isInRange(cord, getCharacterCords(map, attacker), skill->range)) {
+    printf("\nLa casilla esta fuera de rango.\n");
+    return;
+  }
+  
   // Para es la función isInRange
   if (isFree(map, cord)) {
     printf("\nLa casilla que intentas atacar esta vacia.\n");

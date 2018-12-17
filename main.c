@@ -39,6 +39,7 @@ int main(){
     addItemToInventory (turns->chars[0], createEnergyPotion());
     addItemToInventory (turns->chars[0], createHealthPotion());
     map->cols[0]->lands[0]->character = turns->chars[0];
+    map->cols[1]->lands[1]->character = turns->chars[1];
 
     land = map->cols[0]->lands[0];
 
@@ -64,7 +65,7 @@ int main(){
 
     turns->chars[0]->aP = 20;
 
-    // useSkill(turns->chars[0], map, createCord('A', 1), turns->chars[0]->skills[0]->skill);
+    useSkill(turns->chars[0], map, createCord('B', 2), turns->chars[0]->skills[0]->skill);
 
 
     // clearAndPrintMenu(mostrarMenuPrincipal);
