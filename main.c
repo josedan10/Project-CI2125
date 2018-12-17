@@ -12,8 +12,6 @@
 #include "headers/actions.h"
 #include "headers/items.h"
 
-// SO {1: Windows, 2: Linux}
-
 int main(){
 
     CharsListR turns;
@@ -43,7 +41,7 @@ int main(){
     (*(*turns->chars)->items)->item->effect(land);
 
     dropItemToLand(turns->chars[0], land);
-    
+
     // clearAndPrintMenu(mostrarMenuPrincipal);
 
     #if SO == 1
