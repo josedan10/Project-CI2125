@@ -6,11 +6,13 @@
 
 #include "headers/soHelpers.h"
 #include "headers/structs.h"
+#include "headers/effects.h"
 #include "headers/menus.h"
 #include "headers/characters.h"
 #include "headers/land.h"
 #include "headers/map.h"
 #include "headers/items.h"
+#include "headers/skills.h"
 #include "headers/actions.h"
 
 int main(){
@@ -31,9 +33,15 @@ int main(){
         free(character);
     }
 
+    if (isFree(land)) printf("\nEsta casilla esta desocupada\n");
+    else printf("\nEsta casilla esta ocupada\n");
+
     addItemToInventory (turns->chars[0], createEnergyPotion());
     addItemToInventory (turns->chars[0], createHealthPotion());
     land->character = turns->chars[0];
+
+    if (isFree(land)) printf("\nEsta casilla esta desocupada\n");
+    else printf("\nEsta casilla esta ocupada\n");
 
 
     // testing effect

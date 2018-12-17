@@ -1,6 +1,7 @@
 Land* createLand () {
 	Land *l = (Land *) malloc(sizeof(Land));
 	l->items = NULL;
+	l->character = NULL;
 
 	return l;
 }
@@ -47,4 +48,8 @@ void deleteFromLandListItems(Land *land, ItemNode *itemNode) {
   }
 
   free(itemNode);
+}
+
+unsigned short isFree (Land *land) {
+	return land->character == NULL;
 }
