@@ -21,7 +21,11 @@ int hab;
   newChar->playerId = C->playerId;
   newChar->hP = C->hP;
   newChar->velocity = C->velocity;
-  newChar->items = NULL;
+  newChar->items = (HeapItems *)malloc(sizeof(HeapItems));
+  newChar->skills = (SkillsList *)malloc(sizeof(SkillsList));
+
+  (*newChar->items) = NULL;
+  (*newChar->skills) = NULL;
 
   // Create character habilities asignation
 
@@ -96,15 +100,24 @@ int hab;
 void addItemToInventory (Character *C, Item *item) {
   ItemNode *node = (ItemNode *) malloc(sizeof(ItemNode));
   node->item = item;
-  node->next = C->items;
-  C->items = node;
+  node->next = *C->items;
+  *C->items = node;
 }
 
 void dropItemToLand (Character *C, Land *land) {
-  ItemNode *itemNode = C->items;
-  C->items = C->items->next;
+  ItemNode *itemNode = (*C->items);
+  (*C->items) = (*C->items)->next;
 
   addItemsToLandList(land, itemNode);
 
   printf("Dejaste %s en el terreno.\n", itemNode->item->name);
+}
+
+void popItem(HeapItems *items) {
+
+  //delete ItemNode from Inventory
+  ItemNode *aux = *items;
+  *items = (*items)->next;
+
+  free(aux);  
 }

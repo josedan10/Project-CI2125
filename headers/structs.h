@@ -41,8 +41,8 @@ typedef struct character {
 	char name[16];
 	unsigned short hP;
 	unsigned short eP;
-	HeapItems items;
-	SkillsList skills;
+	HeapItems *items;
+	SkillsList *skills;
 	unsigned short damage;
 	unsigned short armor;
 	unsigned short evasion;

@@ -32,13 +32,18 @@ int main(){
     }
 
     Item *item = createEnergyPotion();
-    addItemToInventory (turns->chars[0], item);
+    Item *item2 = createHealthPotion();
 
-    printf("\nNombre de la Poción: %s", (*turns->chars)->items->item->name);
-    (*turns->chars)->items->item->effect((*turns->chars));
+    addItemToInventory (turns->chars[0], item);
+    addItemToInventory (turns->chars[0], item2);
+    land->character = turns->chars[0];
+
+
+    // testing effect
+    (*(*turns->chars)->items)->item->effect(land);
 
     dropItemToLand(turns->chars[0], land);
-
+    
     // clearAndPrintMenu(mostrarMenuPrincipal);
 
     #if SO == 1

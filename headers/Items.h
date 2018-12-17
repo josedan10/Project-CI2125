@@ -1,7 +1,11 @@
-void heal(Character *C) {
+void heal(Land *land) {
 
-  C->hP += C->hP * 0.3;
+  land->character->hP += land->character->hP * 0.3;
   printf("\n\nUsaste una pocion de salud");
+
+  // Delete itemNode
+  popItem(land->character->items);
+
 }
 
 Item* createHealthPotion () {
@@ -17,10 +21,13 @@ Item* createHealthPotion () {
   return healthPotion;
 }
 
-void restoreEnergy(Character *C) {
+void restoreEnergy(Land *land) {
 
-  C->eP += C->eP * 0.3;
+  land->character->eP += land->character->eP * 0.3;
   printf("\n\nUsaste una pocion de energia");
+
+  // Delete itemNode
+  popItem(land->character->items);
 }
 
 Item* createEnergyPotion () {
