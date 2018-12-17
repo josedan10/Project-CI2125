@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "headers/menus.h"
+#include "headers/soHelpers.h"
 #include "headers/constructors.h"
 #include "headers/actions.h"
 
@@ -22,7 +23,6 @@ int main(){
         queuePlayer(character, turnos);
         free(character);
     }
-
 
     #if SO == 1
         system("PAUSE");
