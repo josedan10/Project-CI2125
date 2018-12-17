@@ -1,4 +1,4 @@
-int mostrarMenuPrincipal() {
+unsigned short mostrarMenuPrincipal() {
 	unsigned short opc;
 
 	printf("\n1. Mostrar tablero\n"
@@ -9,7 +9,7 @@ int mostrarMenuPrincipal() {
 		   "6. Usar item\n"
 		   "7. Terminar turno\n"
 		   "8. Inventario\n"
-		   "9. Men� sistema\n"
+		   "9. Menu sistema\n"
 		   "\nSelecciona una opcion: ");
 
 	scanf("%hu", &opc);
@@ -17,7 +17,7 @@ int mostrarMenuPrincipal() {
 	return opc;
 }
 
-int mostrarMenuItems(){
+unsigned short mostrarMenuItems(){
 	unsigned short opc;
 
 	printf("\n\n1. Recoger item"
@@ -33,7 +33,7 @@ int mostrarMenuItems(){
 
 }
 
-int mostrarMenuSistema(){
+unsigned short mostrarMenuSistema(){
 	unsigned short opc;
 
 	printf("\n\n1. Guardar"
