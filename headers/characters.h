@@ -72,14 +72,13 @@ int hab;
   switch (hab) {
     case 1:
       printf("\nElegiste 'congelar'.\n");
-
       // Crear nueva habilidad
+      addToSkills(newChar, createFreezeSkill());
 
       break;
 
     case 2:
       printf("\nElegiste 'incendiar'.\n");
-
       // Crear nueva habilidad
 
       break;

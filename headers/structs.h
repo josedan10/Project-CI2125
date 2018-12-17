@@ -20,7 +20,7 @@ typedef struct land {
 } Land;
 
 typedef struct skill {
-	char nombre[16];
+	char name[16];
 	unsigned short energyCost;
 	unsigned short actionCost;
 	unsigned short range;

@@ -33,3 +33,13 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
 
   printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
+
+unsigned short isInRange(Land *target, Land *actualPos) {
+
+
+
+}
+
+void attack () {
+  
+}

@@ -1,5 +1,5 @@
 /* typedef struct skill {
- * 	char nombre[16];
+ * 	char name[16];
  * 	unsigned short energyCost;
  * 	unsigned short actionCost;
  * 	unsigned short range;
@@ -12,7 +12,7 @@ Skill* createFreezeSkill(){             //Congela la casilla objetivo y reduce a
                                 //que tenga el personaje parado sobre el terreno objetivo
     Skill *skill = (Skill *) malloc(sizeof(Skill));
 
-    strcpy(skill->nombre, "Congelar");
+    strcpy(skill->name, "Congelar");
     skill->energyCost = 4;
     skill->actionCost = 4;
     skill->range = 3;
@@ -25,7 +25,7 @@ Skill* createFireSkill(){               //Incendia la casilla objetivo y causa 3
                                    //ACTUALES del personaje parado sobre el terreno objetivo.
     Skill *skill = (Skill *) malloc(sizeof(Skill));
 
-    strcpy(skill->nombre, "Incendiar");
+    strcpy(skill->name, "Incendiar");
     skill->energyCost = 2;
     skill->actionCost = 7;
     skill->range = 3;
@@ -43,7 +43,7 @@ Skill* createFireSkill(){               //Incendia la casilla objetivo y causa 3
 Skill* createRestoreSkill(){             //Cura el 30% de los puntos de salud del personaje
                                 //que se encuentre parado sobre el terreno objetivo.
     Skill *skill = (Skill *) malloc(sizeof(Skill));
-    strcpy(skill->nombre, "Restaurar");
+    strcpy(skill->name, "Restaurar");
     skill->energyCost = 5;
     skill->actionCost = 4;
     skill->range = 2;
@@ -59,10 +59,10 @@ Skill* createRestoreSkill(){             //Cura el 30% de los puntos de salud de
 
 }
 
-void HabElectrocutar(){         //Electrifica la casilla objetivo y elimina el 50% de la cantidad de puntos de energ�a TOTAL
+Skill *createSkillElectrocute(){         //Electrifica la casilla objetivo y elimina el 50% de la cantidad de puntos de energ�a TOTAL
                                 //del personaje parado sobre el terreno objetivo
     Skill *skill = (Skill *) malloc(sizeof(Skill));
-    strcpy(skill->nombre, "Electrocutar");
+    strcpy(skill->name, "Electrocutar");
     skill->energyCost = 10;
     skill->actionCost = 5;
     skill->range = 4;
@@ -74,4 +74,38 @@ void HabElectrocutar(){         //Electrifica la casilla objetivo y elimina el 5
 
     // }
     // else printf("\n\nNo tienes suficientes puntos para realizar esta accion");
+}
+
+unsigned short addToSkills (Character *C, Skill *skill) {
+
+  SkillNode *skillNode = (SkillNode *) malloc(sizeof(SkillNode));
+  skillNode->skill = skill;
+
+  // Agregar al inicio
+  if ((*C->skills) == NULL || strcmp(skill->name, (*C->skills)->skill->name)) {
+    skillNode->next = (*C->skills);
+    (*C->skills) = skillNode;
+
+
+  } else {
+
+    SkillNode *auxSkill = (*C->skills);
+
+    // Insertar ordenadamente
+    while (auxSkill->next != NULL && strcmp(skill->name, auxSkill->skill->name) > 0)
+      auxSkill = auxSkill->next;
+
+    if (auxSkill->next == NULL || strcmp(skill->name, auxSkill->skill->name) > 0) {
+
+      skillNode->next = auxSkill->next;
+      auxSkill->next = skillNode;
+
+    } else {
+
+      return 0;
+    }
+  }
+
+  return 1;
+
 }

@@ -8,11 +8,11 @@
 #include "headers/structs.h"
 #include "headers/effects.h"
 #include "headers/menus.h"
+#include "headers/skills.h"
 #include "headers/characters.h"
 #include "headers/land.h"
 #include "headers/map.h"
 #include "headers/items.h"
-#include "headers/skills.h"
 #include "headers/actions.h"
 
 int main(){
