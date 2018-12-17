@@ -16,7 +16,7 @@ typedef ItemNode *HeapItems;
 typedef struct land {
 	struct character *character;
 	void(*effect)();
-	ListItems *items;
+	ListItems items;
 } Land;
 
 typedef struct skill {
@@ -42,7 +42,7 @@ typedef struct character {
 	unsigned short hP;
 	unsigned short eP;
 	HeapItems items;
-	SkillsList *skills;
+	SkillsList skills;
 	unsigned short damage;
 	unsigned short armor;
 	unsigned short evasion;

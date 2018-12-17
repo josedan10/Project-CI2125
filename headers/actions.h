@@ -1,5 +1,3 @@
-#include <string.h>
-
 unsigned short startGame () {
 	unsigned short players;
 	printf("Introduzca el numero de jugadores: ");
@@ -95,9 +93,18 @@ int hab;
   }
 }
 
-void addItemsToInventory (Character *C, Item *item) {
+void addItemToInventory (Character *C, Item *item) {
   ItemNode *node = (ItemNode *) malloc(sizeof(ItemNode));
   node->item = item;
   node->next = C->items;
   C->items = node;
+}
+
+void dropItemToLand (Character *C, Land *land) {
+  ItemNode *itemNode = C->items;
+  C->items = C->items->next;
+
+  addItemsToLandList(land, itemNode);
+
+  printf("Dejaste %s en el terreno.\n", itemNode->item->name);
 }

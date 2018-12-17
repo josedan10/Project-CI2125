@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <string.h>
 
+#include "headers/structs.h"
 #include "headers/menus.h"
-#include "headers/soHelpers.h"
+#include "headers/land.h"
 #include "headers/constructors.h"
+#include "headers/soHelpers.h"
 #include "headers/actions.h"
 #include "headers/items.h"
 
@@ -15,6 +18,7 @@ int main(){
 
     CharsListR turns;
     Character *character;
+    Land *land = createLand();
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
@@ -28,10 +32,12 @@ int main(){
     }
 
     Item *item = createEnergyPotion();
-    addItemsToInventory(turns->chars[0], item);
+    addItemToInventory (turns->chars[0], item);
 
     printf("\nNombre de la Poción: %s", (*turns->chars)->items->item->name);
     (*turns->chars)->items->item->effect((*turns->chars));
+
+    dropItemToLand(turns->chars[0], land);
 
     // clearAndPrintMenu(mostrarMenuPrincipal);
 

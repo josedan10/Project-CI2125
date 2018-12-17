@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "structs.h"
-
 CharsListR createNewCharsListR(unsigned short players) {
   CharsListR CListR = malloc(sizeof(CharsListC));  
   CListR->capacity = players;
