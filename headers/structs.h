@@ -2,11 +2,11 @@ typedef struct item {
 	char name[32];
 	unsigned int cost;
 	unsigned int range;
-	void(*efecto)();
+	void(*effect)();
 } Item;
 
 typedef struct itemNode {
-	Item item;
+	Item *item;
 	struct itemNode *next;
 } ItemNode;
 
@@ -15,7 +15,7 @@ typedef ItemNode *HeapItems;
 
 typedef struct land {
 	struct character *character;
-	void(*efect)();
+	void(*effect)();
 	ListItems *items;
 } Land;
 
@@ -41,7 +41,7 @@ typedef struct character {
 	char name[16];
 	unsigned short hP;
 	unsigned short eP;
-	HeapItems *items;
+	HeapItems items;
 	SkillsList *skills;
 	unsigned short damage;
 	unsigned short armor;

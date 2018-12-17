@@ -1,6 +1,6 @@
 #define SO 1
 
-void clearAndPrintMenu(void (*menu)()) {
+void clearAndPrintMenu(int (*menu)()) {
   #if SO == 1
     system("cls");
     (*menu)();

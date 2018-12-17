@@ -26,7 +26,7 @@ Character* createNewCharacter (unsigned int velocity) {
   newCharacter->armor = 100;
   newCharacter->actionPoints = 0;
   newCharacter->evasion = rand() % 101;
-  newCharacter->velocity = velocity;
+  newCharacter->velocity = ++velocity;
   newCharacter->damage = rand() % 60;
 
   printf("\nEstadisticas:\n");

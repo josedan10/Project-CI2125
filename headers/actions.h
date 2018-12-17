@@ -22,6 +22,8 @@ int hab;
   newChar->actionPoints = C->actionPoints;
   newChar->playerId = C->playerId;
   newChar->hP = C->hP;
+  newChar->velocity = C->velocity;
+  newChar->items = NULL;
 
   // Create character habilities asignation
 
@@ -93,3 +95,9 @@ int hab;
   }
 }
 
+void addItemsToInventory (Character *C, Item *item) {
+  ItemNode *node = (ItemNode *) malloc(sizeof(ItemNode));
+  node->item = item;
+  node->next = C->items;
+  C->items = node;
+}

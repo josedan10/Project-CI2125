@@ -27,6 +27,6 @@ void restore(Land *land) {
 }
 
 void electrocute(Land *land) {
-	// Disminuye a la mitad los puntos del jugador
+	// Disminuye a la mitad los puntos de energía del jugador
 	land->character->eP -= ceil(land->character->eP / 2);
 }
