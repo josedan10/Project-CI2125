@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int mostrarMenuPrincipal() {
 	unsigned short opc;
 

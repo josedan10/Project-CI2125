@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <time.h> 
-
 typedef struct item {
 	char name[32];
 	unsigned int cost;

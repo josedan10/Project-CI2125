@@ -93,5 +93,3 @@ int hab;
   }
 }
 
-// Clon Player
-// Select hability

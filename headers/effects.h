@@ -1,6 +1,3 @@
-#include "structs.h"
-#include <math.h>
-
 void fire(Land *land) {
 	// Incendia al jugador y le resta el 30% de su vida actual.
 
@@ -8,19 +5,19 @@ void fire(Land *land) {
 	auxArmor = auxArmor - land->character->hP * 0.3;
 
 	if (auxArmor < 0) {
-		// La armadura no soportó todo el daño.
+		// La armadura no soportï¿½ todo el daï¿½o.
 
 		land->character->hP += auxArmor;
 		land->character->armor = 0;
 	} else {
-		// La armadura absorbió todo el daño.
+		// La armadura absorbiï¿½ todo el daï¿½o.
 
 		land->character->armor = auxArmor;
 	}
 }
 
 void freeze(Land *land) {
-	// Congela al jugador y no le permite realizar ninguna acción.
+	// Congela al jugador y no le permite realizar ninguna acciï¿½n.
 	land->character->actionPoints = 0;
 }	
 

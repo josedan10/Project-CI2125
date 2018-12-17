@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
 #include "headers/menus.h"
 #include "headers/soHelpers.h"
 #include "headers/constructors.h"
 #include "headers/actions.h"
 
 // SO {1: Windows, 2: Linux}
-#define SO 1
 
 int main(){
 
@@ -23,6 +25,8 @@ int main(){
         queuePlayer(character, turnos);
         free(character);
     }
+
+    clearAndPrintMenu(mostrarMenuPrincipal);
 
     #if SO == 1
         system("PAUSE");
