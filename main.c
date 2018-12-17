@@ -4,13 +4,13 @@
 #include <time.h>
 #include <string.h>
 
+#include "headers/soHelpers.h"
 #include "headers/structs.h"
 #include "headers/menus.h"
+#include "headers/characters.h"
 #include "headers/land.h"
-#include "headers/constructors.h"
-#include "headers/soHelpers.h"
-#include "headers/actions.h"
 #include "headers/items.h"
+#include "headers/actions.h"
 
 int main(){
 

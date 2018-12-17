@@ -31,3 +31,20 @@ void addItemsToLandList (Land *land, ItemNode *newNode) {
 		land->items = newNode;
 	}
 }
+
+// Pre: itemNode must be in land->items
+void deleteFromLandListItems(Land *land, ItemNode *itemNode) {
+  ItemNode *aux = land->items;
+
+  if (aux == itemNode)
+    land->items = land->items->next;
+
+  else {
+    while (aux->next != itemNode)
+      aux = aux->next;
+
+    aux->next = aux->next->next;
+  }
+
+  free(itemNode);
+}

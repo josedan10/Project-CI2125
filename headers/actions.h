@@ -102,6 +102,8 @@ void addItemToInventory (Character *C, Item *item) {
   node->item = item;
   node->next = *C->items;
   *C->items = node;
+
+  printf("\nSe ha añadido %s a tu inventario.\n", item->name);
 }
 
 void dropItemToLand (Character *C, Land *land) {
@@ -113,11 +115,12 @@ void dropItemToLand (Character *C, Land *land) {
   printf("Dejaste %s en el terreno.\n", itemNode->item->name);
 }
 
-void popItem(HeapItems *items) {
+// Pre: itemNode must be in land->items
+void pickItemFromLand (Land *land, ItemNode *itemNode) {
+  Character *myChar = land->character;
 
-  //delete ItemNode from Inventory
-  ItemNode *aux = *items;
-  *items = (*items)->next;
+  addItemToInventory(myChar, itemNode->item);
+  deleteFromLandListItems(land, itemNode);
 
-  free(aux);  
+  printf("Se ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
