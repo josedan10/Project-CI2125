@@ -9,6 +9,7 @@
 #include "headers/menus.h"
 #include "headers/characters.h"
 #include "headers/land.h"
+#include "headers/map.h"
 #include "headers/items.h"
 #include "headers/actions.h"
 
@@ -17,6 +18,7 @@ int main(){
     CharsListR turns;
     Character *character;
     Land *land = createLand();
+    Map *map = createMap();
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
@@ -29,18 +31,25 @@ int main(){
         free(character);
     }
 
-    Item *item = createEnergyPotion();
-    Item *item2 = createHealthPotion();
-
-    addItemToInventory (turns->chars[0], item);
-    addItemToInventory (turns->chars[0], item2);
+    addItemToInventory (turns->chars[0], createEnergyPotion());
+    addItemToInventory (turns->chars[0], createHealthPotion());
     land->character = turns->chars[0];
 
 
     // testing effect
     (*(*turns->chars)->items)->item->effect(land);
 
-    dropItemToLand(turns->chars[0], land);
+    switch(confirm("dejar este item en el terreno")) {
+
+        case 1:
+            dropItemToLand(turns->chars[0], land);
+            break;
+
+        case 2:
+            printf("Accion cancelada");
+            break;
+    }
+
 
     // clearAndPrintMenu(mostrarMenuPrincipal);
 

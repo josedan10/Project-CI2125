@@ -62,3 +62,12 @@ typedef struct charsListC {
 } CharsListC;
 
 typedef CharsListC *CharsListR;
+
+typedef struct col {
+	char letter;
+	Land **land;
+} Col;
+
+typedef struct map {
+	Col **cols;
+} Map;

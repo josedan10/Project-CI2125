@@ -46,3 +46,13 @@ unsigned short mostrarMenuSistema(){
 
 	return opc;
 }
+
+unsigned short confirm(char *accion) {
+	unsigned short opc;
+
+	printf("Estas seguro de que deseas %s ?", accion);
+	printf("\n\n1) Si.\n2) No.\n");
+	scanf("%hu", &opc);
+
+	return opc;
+}
