@@ -28,8 +28,8 @@ Character* createNewCharacter (unsigned int velocity) {
 
   newCharacter->hP = 100;
   newCharacter->eP = 100;
+  newCharacter->aP = 0;
   newCharacter->armor = 100;
-  newCharacter->actionPoints = 0;
   newCharacter->evasion = rand() % 101;
   newCharacter->velocity = ++velocity;
   newCharacter->damage = rand() % 60;
@@ -49,7 +49,7 @@ int hab;
   newChar->damage = C->damage;
   newChar->eP = C->eP;
   newChar->evasion = C->evasion;
-  newChar->actionPoints = C->actionPoints;
+  newChar->aP = C->aP;
   newChar->playerId = C->playerId;
   newChar->hP = C->hP;
   newChar->velocity = C->velocity;

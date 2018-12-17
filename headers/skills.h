@@ -31,11 +31,6 @@ Skill* createFireSkill(){               //Incendia la casilla objetivo y causa 3
     skill->range = 3;
     skill->effect = restore;
 
-    // if((skill->energyCost) >= 2 && (skill->actionCost) >= 7){
-
-    // }
-    // else printf("\n\nNo tienes suficientes puntos para realizar esta accion");
-
     return skill;
 
 }
@@ -50,13 +45,6 @@ Skill* createRestoreSkill(){             //Cura el 30% de los puntos de salud de
     skill->effect = restore;
 
     return skill;
-
-    // if((skill->energyCost) >= 5 && (skill->actionCost) >= 4){
-
-
-    // }
-    // else printf("\n\nNo tienes suficientes puntos para realizar esta accion");
-
 }
 
 Skill *createSkillElectrocute(){         //Electrifica la casilla objetivo y elimina el 50% de la cantidad de puntos de energ�a TOTAL
@@ -68,12 +56,6 @@ Skill *createSkillElectrocute(){         //Electrifica la casilla objetivo y eli
     skill->range = 4;
 
     return skill;
-
-    // if((skill->energyCost) >= 10 && (skill->actionCost) >= 5){
-
-
-    // }
-    // else printf("\n\nNo tienes suficientes puntos para realizar esta accion");
 }
 
 unsigned short addToSkills (Character *C, Skill *skill) {
@@ -108,4 +90,10 @@ unsigned short addToSkills (Character *C, Skill *skill) {
 
   return 1;
 
+}
+
+unsigned short skillCostsValidator (Character *C, Skill *skill) {
+
+  // If this return 1 you can attack  
+  return (C->aP > skill->actionCost && C->eP > skill->energyCost);
 }

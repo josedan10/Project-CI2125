@@ -54,6 +54,20 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
 
 // }
 
-void attack () {
-  
+void attack (Character *attacker, Map *map, Cord *cord, Skill *skill) {
+
+  // Primero se verifica que esté en el rango de ataque.
+  // Para es la función isInRange
+  if (isFree(map, cord)) {
+    printf("\nLa casilla que intentas atacar esta vacia.\n");
+    return;
+  }
+
+  if (!skillCostsValidator(attacker, skill)) {
+
+    printf("No tienes los requisitos suficientes para atacar");
+    return;
+  }
+
+  printf("Atacaste");  
 }

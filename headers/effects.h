@@ -18,7 +18,7 @@ void fire(Land *land) {
 
 void freeze(Land *land) {
 	// Congela al jugador y no le permite realizar ninguna acci�n.
-	land->character->actionPoints = 0;
+	land->character->aP = 0;
 }	
 
 void restore(Land *land) {

@@ -60,6 +60,8 @@ int main(){
             break;
     }
 
+    attack(turns->chars[0], map, createCord('A', 3), turns->chars[0]->skills[0]->skill);
+
 
     // clearAndPrintMenu(mostrarMenuPrincipal);
 

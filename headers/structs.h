@@ -47,7 +47,7 @@ typedef struct character {
 	unsigned short armor;
 	unsigned short evasion;
 	unsigned short velocity;
-	unsigned short actionPoints;
+	unsigned short aP;
 	unsigned short playerId;
 
 } Character;
