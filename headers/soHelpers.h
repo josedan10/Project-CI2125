@@ -1,12 +1,22 @@
 // SO {1: Windows, 2: Linux}
 #define SO 1
 
-void clearAndPrintMenu(int (*menu)()) {
+unsigned short clearAndPrintMenu(unsigned short (*menu)()) {
   #if SO == 1
     system("cls");
-    (*menu)();
+    return (*menu)();
   #else
     system("clear");
-    (*menu)();
+    return (*menu)();
+  #endif
+}
+
+void clearScreen () {
+  #if SO == 1
+    system("cls");
+
+  #else
+    system("clear");
+
   #endif
 }

@@ -52,6 +52,7 @@ typedef struct character {
 	unsigned short evasion;
 	unsigned short velocity;
 	unsigned short aP;
+	unsigned short range;
 	unsigned short playerId;
 
 } Character;

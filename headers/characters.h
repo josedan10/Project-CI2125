@@ -1,14 +1,56 @@
-void showCharacterDetails (Character *C) {
+Cord* getCharacterCords (Map *map, Character *C) {
+  unsigned short i, j = i = 0;
+  char letter;
+  int pos;
+  Cord * cords = NULL;
+  Character *Char;
+
+  while (i < 20 && cords == NULL) {
+    for (j = 0; j < 10; j ++) {
+
+      letter = map->cols[i]->letter;
+      pos = j+1;
+      Char = map->cols[i]->lands[j]->character;
+
+
+      if (Char != NULL && Char == C) {
+        cords = (Cord *) malloc(sizeof(Cord));
+        cords->col = map->cols[i]->letter;
+        cords->row = j;
+        
+        break;
+      }
+    }
+
+    if (j != 10) break;
+
+    i++;
+  }
+
+  return cords;     
+}
+
+void showCharacterDetails (Map *map, Character *C) {
 
   if (C != NULL) {
 
     // printf("\nEstadisticas:\n");
+    if (map != NULL) {
+
+      Cord *cord = getCharacterCords(map, C);
+      printf("Posicion en el mapa: (%hu, %c)\n", cord->row + 1, cord->col);
+    }
+
     printf("%s\n", C->name);
     printf("HP: %d\n", C->hP);
     printf("Evasion: %d\n", C->evasion);
     printf("Armadura: %d\n", C->armor);
     printf("Velocidad: %d\n", C->velocity);
     printf("Dano: %d\n", C->damage);
+    printf("Puntos de Accion: %d\n", C->aP);
+    printf("Rango: %d\n", C->range);
+
+
   } else {
     printf("No hay personaje.\n");
   }
@@ -41,8 +83,9 @@ Character* createNewCharacter (unsigned int velocity) {
   newCharacter->evasion = rand() % 101;
   newCharacter->velocity = ++velocity;
   newCharacter->damage = rand() % 60;
+  newCharacter->range = 1 + rand() % 4;
 
-  showCharacterDetails(newCharacter);
+  showCharacterDetails(NULL, newCharacter);
 
   return newCharacter;
 }
@@ -61,6 +104,7 @@ int hab;
   newChar->playerId = C->playerId;
   newChar->hP = C->hP;
   newChar->velocity = C->velocity;
+  newChar->range = C->range;
   newChar->items = (HeapItems *)malloc(sizeof(HeapItems));
   newChar->skills = (SkillsList *)malloc(sizeof(SkillsList));
 
@@ -82,7 +126,6 @@ int hab;
       printf("\nElegiste 'congelar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createFreezeSkill());
-
       break;
 
     case 2:
@@ -146,26 +189,26 @@ void popItem(HeapItems *items) {
   free(aux);  
 }
 
-Cord * getCharacterCords (Map *map, Character *C) {
-  unsigned short i, j = i = 0;
-  Cord * cords = NULL;
-
-  while (cords == NULL) {
-    for (j = 0; j < 10; j ++) {
-
-      if (map->cols[i]->lands[j]->character == C) {
-        cords = (Cord *) malloc(sizeof(Cord));
-        cords->col = map->cols[i]->letter;
-        cords->row = j;
-      }
-    }
-
-    i++;
-  }
-
-  return cords;     
-}
-
 void changeCharacterPosition (Character *C, Land *land) {
   land->character = C;
+}
+
+void showCharacterSkills (Map *map, Character *C) {
+
+  showCharacterDetails(map, C);
+  printf("Tus habilidades\n");
+  printf("_______________\n");
+
+  SkillNode *auxNode = (*C->skills);
+  unsigned short i = 0;
+
+  while (auxNode != NULL) {
+    i++;
+    printf("\n%d) %s\n", i, auxNode->skill->name);
+    printf("\t- Rango: %d\n", auxNode->skill->range);
+    printf("\t- Puntos de accion: %d\n", auxNode->skill->actionCost);
+    printf("\t- Energia: %d\n", auxNode->skill->energyCost);
+
+    auxNode = auxNode->next;
+  }
 }

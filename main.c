@@ -5,6 +5,7 @@
 #include <string.h>
 
 #define ASCII_A 65
+#define ASCII_T 84
 
 #include "headers/soHelpers.h"
 #include "headers/structs.h"
@@ -15,19 +16,27 @@
 #include "headers/map.h"
 #include "headers/items.h"
 #include "headers/menus.h"
+#include "headers/getters.h"
+#include "headers/validators.h"
 #include "headers/actions.h"
 
 int main(){
 
+	printf("Bienvenido a JUEGUITO :v\n\n");
+
     Character *character;
     Land *land;
     Cord *randomCord;
+    unsigned short isInGame = 1;
+    unsigned short turnCounter = 0;
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
 
+    // User options;
+    unsigned short opt;
+
     srand(time(NULL));
 
-	printf("Bienvenido a JUEGUITO :v\n\n");
 
     for (int i = 0; i < turns->capacity; i++) {
 
@@ -38,13 +47,73 @@ int main(){
 
         // Random positions for players
         do {
-            randomCord = createCord(65 + rand() % ((65 + 19) + 1 - 65), 1 + rand() % (10 + 1 - 1));
+            randomCord = createCord(65 + rand() % (84 + 1 - 65), 1 + rand() % 10);
 
         } while (!isFree(map, randomCord));
 
-        moveCharacterToCords(map, NULL, randomCord);
+        moveCharacterToCords(map, turns->chars[i], randomCord);
         free(character);
+        waitForKeyPress();
+        clearScreen();
     }
+
+    character = turns->chars[turnCounter];
+    do {
+
+        character->aP += 5;
+        
+        do {
+            
+            switch (mostrarMenuPrincipal(character)) {
+                case 1:
+                    // Ver mapa
+                    clearScreen();
+                    // printMap();
+                    waitForKeyPress();
+                    break;
+
+                case 2:
+                    // Consultar casilla
+                    clearScreen();
+                    seeLand(map, askForCords());
+                    waitForKeyPress();
+                    break;
+                
+                case 3:
+                    // Atacar
+                    clearScreen();
+                    attack(map, character);
+                    waitForKeyPress();
+                    break;
+
+                case 4:
+                    // Moverse
+                    clearScreen();
+                    moveCharacterToCords(map, character, askForCords());
+
+                case 5:
+                    // Usar habilidad
+                    clearScreen();
+                    useSkill(character, map, askForCords(), askForSkillToUse(map, character));
+                    waitForKeyPress();
+                    break;
+
+                case 6:
+                    //Usar item
+                    clearScreen();
+            }
+
+            clearScreen();
+            
+        } while (character->aP > 0);
+
+        turnCounter++;
+
+        if (turnCounter == turns->capacity) turnCounter = 0;
+
+        character = turns->chars[turnCounter];
+        // waitForKeyPress();
+    } while (isInGame);
 
 
     if (isFree(map, createCord('A', 1))) printf("\nEsta casilla esta desocupada\n");
@@ -83,10 +152,10 @@ int main(){
 
     useSkill(turns->chars[0], map, createCord('B', 2), turns->chars[0]->skills[0]->skill);
 
-    moveCharacterToCords(map, getCharacterCords(map, turns->chars[0]), createCord('B', 1));
+    // moveCharacterToCords(map, getCharacterCords(map, turns->chars[0]), createCord('B', 1));
 
 
-    // clearAndPrintMenu(mostrarMenuPrincipal);
+    
 
     #if SO == 1
         system("PAUSE");

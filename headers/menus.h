@@ -1,7 +1,10 @@
-unsigned short mostrarMenuPrincipal() {
+unsigned short mostrarMenuPrincipal(Character *C) {
 	unsigned short opc;
+	clearScreen();
 
-	printf("\n1. Mostrar tablero\n"
+	printf("%s esta jugando\n", C->name);
+
+	printf("1. Mostrar tablero\n"
 		   "2. Consultar casilla\n"
 		   "3. Atacar\n"
 		   "4. Moverse\n"
@@ -20,6 +23,7 @@ unsigned short mostrarMenuPrincipal() {
 unsigned short mostrarMenuItems(){
 	unsigned short opc;
 
+	fseek(stdin,0,SEEK_END);
 	printf("\n\n1. Recoger item"
 		   "\n2. Soltar item"
 		   "\n3. Equipar item"

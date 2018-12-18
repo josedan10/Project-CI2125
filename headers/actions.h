@@ -112,11 +112,11 @@ void seeLand (Map *map, Cord *cord) {
   Land *land = getLandWithCord(map, cord);
   Character *C = land->character;
 
-  printf("\nTerreno (%hu, %c)\n\n", cord->row + 1, cord->col);
+  printf("\nDetalles del Terreno (%hu, %c)\n\n", cord->row + 1, cord->col);
 
   printf("Personaje\n");
   printf("_________\n\n");
-  showCharacterDetails(C);
+  showCharacterDetails(map, C);
 
   printf("Items\n");
   printf("_____\n\n");
@@ -125,21 +125,36 @@ void seeLand (Map *map, Cord *cord) {
   printf("Efectos\n");
   printf("_______\n\n");
   printEffect(land->effect);
-
 }
 
-void moveCharacterToCords(Map* map, Cord *actualCords, Cord *destinyCords) {
+void moveCharacterToCords(Map* map, Character *C, Cord *destinyCords) {
   if (isFree(map, destinyCords)) {
 
-    changeCharacterPosition(map->cols[destinyCords->col - ASCII_A]->lands[destinyCords->row]->character, getLandWithCord(map, destinyCords));
+    Land *land = getLandWithCord(map, destinyCords);
+    changeCharacterPosition(C, getLandWithCord(map, destinyCords));
 
-    if (actualCords != NULL)
-      getLandWithCord(map, actualCords)->character = NULL;
-      
-    printf("\n\nDesplazamiento realizado a las coordenadas (%c, %hu).\n", destinyCords->col, destinyCords->row);
+    seeLand(map, getCharacterCords(map, C));
+
+    printf("\n\nDesplazamiento realizado a las coordenadas (%hu, %c).\n", destinyCords->row + 1, destinyCords->col);
 
   } else {
 
     printf("\n\nMOVIMIENTO NO PERMITIDO: No puedes moverte a estas coordenadas. Ya hay un jugador en ese lugar.\n");
   }
+}
+
+void waitForKeyPress() {
+  #if SO == 1
+    system("PAUSE");  
+  #endif 
+}
+
+void attack(Map *map, Character *C) {
+  puts("Direccion del ataque");
+  Cord *cord = askForCords();
+
+  if (isInRange(cord, getCharacterCords(map, C), C->range)) {
+    // attack
+  }
+
 }
