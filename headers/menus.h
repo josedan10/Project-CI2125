@@ -1,13 +1,13 @@
-unsigned short showMainMenu(Character *C) {
+unsigned short showMainMenu(Map *map, Character *C) {
 	unsigned short opc;
 	clearScreen();
 
-	printf("%s esta jugando\n\n", C->name);
+	showCharacterDetails(map, C);
 
 	printf("1. Mostrar tablero\n"
 		   "2. Consultar casilla\n"
-		   "3. Atacar\n"
-		   "4. Moverse\n"
+		   "3. Atacar (2 pto. de accion)\n"
+		   "4. Moverse (1pto. x cuadro)\n"
 		   "5. Usar habilidad\n"
 		   "6. Usar item\n"
 		   "7. Terminar turno\n"
@@ -24,9 +24,10 @@ unsigned short showInventoryMenu (Character *C){
 	unsigned short opc;
 
 	clearScreen();
-	printf("%s esta jugando\n\n", C->name);
+	printf("%s esta jugando\n", C->name);
+	printf("Puntos de accion disponibles: %d\n", C->aP);
 
-	printf("\n\n1. Recoger item"
+	printf("\n1. Recoger item"
 		   "\n2. Soltar item"
 		   "\n3. Equipar item"
 		   "\n4. Consultar tope"

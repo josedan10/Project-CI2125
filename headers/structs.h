@@ -43,7 +43,7 @@ typedef SkillNode *SkillsList;
 typedef struct character {
 
 	char name[16];
-	unsigned short hP;
+	short hP;
 	unsigned short eP;
 	HeapItems *items;
 	SkillsList *skills;

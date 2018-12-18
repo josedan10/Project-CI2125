@@ -40,12 +40,6 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
   printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
 
-unsigned short isInRange(Cord *target, Cord *cord, unsigned short range) {
-
-  return range > abs(target->col - cord->col) && range > abs(target->row - cord->row);
-
-}
-
 void useItem (Character *attacker, Land *land) {
   getTopItemFromInventory(attacker->items);
 }
@@ -69,7 +63,7 @@ void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
   if (!skillCostsValidator(attacker, skill)) {
 
-    printf("No tienes los requisitos suficientes para atacar");
+    printf("No tienes los requisitos suficientes para atacar\n");
     return;
   }
 
@@ -115,18 +109,21 @@ void printEffect(TypeEffect effect) {
 }
 
 void moveCharacterToCords(Map* map, Character *C, Cord *destinyCords) {
-  if (isFree(map, destinyCords)) {
 
-    Land *land = getLandWithCord(map, destinyCords);
+  Cord *actualCord = getCharacterCords(map, C);
+
+  if (movementValidator(map, actualCord, destinyCords, C)) {
+
+    if (actualCord != NULL){
+      C->aP -= abs(actualCord->col - destinyCords->col) + abs(actualCord->row - destinyCords->row);
+      getLandWithCord(map, actualCord)->character = NULL;
+    
+    }
+
     changeCharacterPosition(C, getLandWithCord(map, destinyCords));
-
     seeLand(map, getCharacterCords(map, C));
 
     printf("\n\nDesplazamiento realizado a las coordenadas (%hu, %c).\n", destinyCords->row + 1, destinyCords->col);
-
-  } else {
-
-    printf("\n\nMOVIMIENTO NO PERMITIDO: No puedes moverte a estas coordenadas. Ya hay un jugador en ese lugar.\n");
   }
 }
 
@@ -136,14 +133,45 @@ void waitForKeyPress() {
   #endif 
 }
 
-void attack(Map *map, Character *C) {
+Character* executeAttack (Character *C, Land *land) {
+  // Disminuimos los puntos de accion
+  C->aP -= 2;
+
+  if (rand() % 101 > C->evasion) {
+    // No pudo evadirse el ataque
+    short damageTotal = C->damage - (land->character->armor);
+
+    if (damageTotal < 0) {
+      land->character->armor -= C->damage;
+    } else {
+      land->character->armor = 0;
+      land->character->hP -= damageTotal;
+    }
+
+    printf("\nAtacaste a %s\n", land->character->name);
+
+    if (!isAlive(land->character)) {
+      printf("\n%s fue eliminado\n", land->character->name);
+      return land->character;
+    }
+
+  } else {
+    printf("\nEl ataque fue evadido\n");
+  }
+
+  return NULL;
+}
+
+Character* attack(Map *map, Character *C) {
   puts("Direccion del ataque");
   Cord *cord = askForCords();
 
-  if (isInRange(cord, getCharacterCords(map, C), C->range)) {
-    // attack
+  if (attackValidator(map, C, cord)) {
+    // Se puede atacar
+    return executeAttack (C, getLandWithCord(map, cord));
   }
 
+  return NULL;
 }
 
 void showTopInventory (Character *C) {
@@ -209,4 +237,22 @@ void inventoryActions (Map *map, Character *C) {
         break;
     }
   } while (opt != 5);
+}
+
+void removeFromTurns (CharsListR turns, Character *C) {
+  
+  unsigned short i = 0;
+  Character *auxChar = turns->chars[i];
+
+  while (auxChar != C) {
+    auxChar = turns->chars[++i];
+  }
+
+  while (i < turns->omega) {
+    turns[i] = turns[i + 1];
+    i++;
+  }
+
+  turns->omega--;
+  turns->tam--;
 }

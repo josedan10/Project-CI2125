@@ -54,6 +54,7 @@ Skill *createElectrocuteSkill(){         //Electrifica la casilla objetivo y eli
     skill->energyCost = 10;
     skill->actionCost = 5;
     skill->range = 4;
+    skill->effect = electrocute;
 
     return skill;
 }

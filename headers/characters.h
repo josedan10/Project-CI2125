@@ -43,6 +43,7 @@ void showCharacterDetails (Map *map, Character *C) {
 
     printf("%s\n", C->name);
     printf("HP: %d\n", C->hP);
+    printf("Puntos de energia: %d\n", C->eP);
     printf("Evasion: %d\n", C->evasion);
     printf("Armadura: %d\n", C->armor);
     printf("Velocidad: %d\n", C->velocity);
@@ -80,9 +81,9 @@ Character* createNewCharacter (unsigned int velocity) {
   newCharacter->eP = 100;
   newCharacter->aP = 0;
   newCharacter->armor = 100;
-  newCharacter->evasion = rand() % 101;
+  newCharacter->evasion = rand() % 31;
   newCharacter->velocity = ++velocity;
-  newCharacter->damage = rand() % 60;
+  newCharacter->damage = 1 + rand() % 40;
   newCharacter->range = 1 + rand() % 4;
 
   showCharacterDetails(NULL, newCharacter);
@@ -191,6 +192,7 @@ void popItem(HeapItems *items) {
 
 void changeCharacterPosition (Character *C, Land *land) {
   land->character = C;
+
 }
 
 void showCharacterSkills (Map *map, Character *C) {
@@ -215,6 +217,10 @@ void showCharacterSkills (Map *map, Character *C) {
 
 unsigned short isNotEmptyInventory(HeapItems *items) {
   return (*items) != NULL;
+}
+
+unsigned short isAlive(Character *C) {
+  return C->hP > 0;
 }
 
 // void showCharacterInventory (Character C*) {

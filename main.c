@@ -27,7 +27,7 @@ int main(){
     Character *character;
     Land *land;
     Cord *randomCord;
-    unsigned short isInGame = 1, turnCounter = 0, finishTurn;
+    unsigned short isInGame = 1, turnCounter = 0, notFinishTurn;
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
 
@@ -60,11 +60,11 @@ int main(){
     do {
 
         character->aP += 5;
-        finishTurn = 0;
+        notFinishTurn = 1;
         
         do {
             
-            switch (showMainMenu(character)) {
+            switch (showMainMenu(map, character)) {
                 case 1:
                     // Ver mapa
                     clearScreen();
@@ -82,7 +82,14 @@ int main(){
                 case 3:
                     // Atacar
                     clearScreen();
-                    attack(map, character);
+                    Character *isDead = attack(map, character);
+
+                    if (isDead != NULL) {
+                        removeFromTurns(turns, isDead);
+                    }
+
+                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+
                     waitForKeyPress();
                     break;
 
@@ -90,6 +97,8 @@ int main(){
                     // Moverse
                     clearScreen();
                     moveCharacterToCords(map, character, askForCords());
+                    waitForKeyPress();
+                    break;
 
                 case 5:
                     // Usar habilidad
@@ -110,7 +119,7 @@ int main(){
                     // Terminar turno
                     clearScreen();
                     if (confirm("terminar turno"))
-                        finishTurn = 1;
+                        notFinishTurn = 0;
 
                     waitForKeyPress();
                     break;
@@ -123,14 +132,13 @@ int main(){
                     waitForKeyPress();
                     break;                    
             }
-
             clearScreen();
             
-        } while (character->aP > 0 || finishTurn);
+        } while (character->aP > 0 && notFinishTurn);
 
         turnCounter++;
 
-        if (turnCounter == turns->capacity) turnCounter = 0;
+        if (turnCounter == turns->capacity) turnCounter = turns->alfa;
 
         character = turns->chars[turnCounter];
         // waitForKeyPress();

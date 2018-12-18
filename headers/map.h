@@ -44,3 +44,9 @@ Land* getLandWithCord (Map *map, Cord *cord) {
 void printMap (Map *map) {
   // Print the map;
 }
+
+unsigned short isInRange(Cord *target, Cord *cord, unsigned short range) {
+
+  return range > abs(target->col - cord->col) && range > abs(target->row - cord->row);
+
+}
