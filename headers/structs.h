@@ -20,7 +20,7 @@ typedef enum typeEffect{
 typedef struct land {
 	struct character *character;
 	TypeEffect effect;
-	ListItems items;
+	ListItems *items;
 } Land;
 
 typedef struct skill {

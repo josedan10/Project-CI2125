@@ -212,3 +212,19 @@ void showCharacterSkills (Map *map, Character *C) {
     auxNode = auxNode->next;
   }
 }
+
+unsigned short isNotEmptyInventory(HeapItems *items) {
+  return (*items) != NULL;
+}
+
+// void showCharacterInventory (Character C*) {
+//   printf("Inventario\n");
+//   printf("__________\n");
+
+//   ItemNode *auxNode = (*C->items);
+
+//   while (auxNode != NULL) {
+//     printf("- ")
+//   }
+  
+// }

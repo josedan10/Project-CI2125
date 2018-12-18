@@ -1,8 +1,8 @@
-unsigned short mostrarMenuPrincipal(Character *C) {
+unsigned short showMainMenu(Character *C) {
 	unsigned short opc;
 	clearScreen();
 
-	printf("%s esta jugando\n", C->name);
+	printf("%s esta jugando\n\n", C->name);
 
 	printf("1. Mostrar tablero\n"
 		   "2. Consultar casilla\n"
@@ -20,10 +20,12 @@ unsigned short mostrarMenuPrincipal(Character *C) {
 	return opc;
 }
 
-unsigned short mostrarMenuItems(){
+unsigned short showInventoryMenu (Character *C){
 	unsigned short opc;
 
-	fseek(stdin,0,SEEK_END);
+	clearScreen();
+	printf("%s esta jugando\n\n", C->name);
+
 	printf("\n\n1. Recoger item"
 		   "\n2. Soltar item"
 		   "\n3. Equipar item"
@@ -58,5 +60,5 @@ unsigned short confirm(char *accion) {
 	printf("\n\n1) Si.\n2) No.\n");
 	scanf("%hu", &opc);
 
-	return opc;
+	return (opc == 1) ? opc : 0;
 }

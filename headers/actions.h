@@ -16,12 +16,18 @@ void addItemToInventory (Character *C, Item *item) {
 }
 
 void dropItemToLand (Character *C, Land *land) {
-  ItemNode *itemNode = (*C->items);
-  (*C->items) = (*C->items)->next;
 
-  addItemsToLandList(land, itemNode);
+  if (isNotEmptyInventory(C->items)) {
 
-  printf("\nDejaste %s en el terreno.\n", itemNode->item->name);
+    ItemNode *itemNode = (*C->items);
+    (*C->items) = (*C->items)->next;
+    addItemsToLandList(land, itemNode);
+
+    printf("\nDejaste %s en el terreno.\n", itemNode->item->name);
+  } else {
+    printf("\n\nTu inventario esta vacio\n");
+  }
+
 }
 
 // Pre: itemNode must be in land->items
@@ -108,25 +114,6 @@ void printEffect(TypeEffect effect) {
   }
 }
 
-void seeLand (Map *map, Cord *cord) {
-  Land *land = getLandWithCord(map, cord);
-  Character *C = land->character;
-
-  printf("\nDetalles del Terreno (%hu, %c)\n\n", cord->row + 1, cord->col);
-
-  printf("Personaje\n");
-  printf("_________\n\n");
-  showCharacterDetails(map, C);
-
-  printf("Items\n");
-  printf("_____\n\n");
-  printItems(land->items);
-
-  printf("Efectos\n");
-  printf("_______\n\n");
-  printEffect(land->effect);
-}
-
 void moveCharacterToCords(Map* map, Character *C, Cord *destinyCords) {
   if (isFree(map, destinyCords)) {
 
@@ -157,4 +144,69 @@ void attack(Map *map, Character *C) {
     // attack
   }
 
+}
+
+void showTopInventory (Character *C) {
+
+  if (isNotEmptyInventory(C->items)) {
+
+    Item *item = getTopItemFromInventory(C->items);
+
+    printf("En el tope tienes %s\n\n", item->name);
+    printf("Detalles del item\n");
+    printf("_________________\n\n");
+
+    printf("\t- Costo: %d puntos de accion.\n", item->cost);
+    printf("\t- Rango: %d.\n", item->range);
+  } else {
+    printf("Tu inventario esta vacio.\n");
+  }
+}
+
+void getItemFromLand (Land *land, Character *C) {
+  
+  if ((*land->items) != NULL)
+    pickItemFromLand(land, land->items[askForItem(land)]);
+  else
+    printf("\nNo hay items en esta area\n");
+}
+
+void inventoryActions (Map *map, Character *C) {
+
+  unsigned short opt;
+
+  do {
+
+    switch (opt = showInventoryMenu(C)) {
+      case 1:
+        // Recoger Item
+        getItemFromLand(getLandWithCord(map, getCharacterCords(map, C)), C);
+        waitForKeyPress();
+        break;
+      
+      case 2:
+        // Soltar item
+        dropItemToLand(C, getLandWithCord(map, getCharacterCords(map, C)));
+        waitForKeyPress();
+        break;
+
+      case 3:
+        // Equipar Item
+        break;
+      
+      case 4:
+        // Consultar tope
+        showTopInventory(C);
+        waitForKeyPress();
+        break;
+
+      case 5:
+        // Volver
+        if (!confirm("volver al menu principal"))
+          opt = 6;
+        
+        // waitForKeyPress();
+        break;
+    }
+  } while (opt != 5);
 }

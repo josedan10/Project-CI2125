@@ -16,8 +16,8 @@
 #include "headers/map.h"
 #include "headers/items.h"
 #include "headers/menus.h"
-#include "headers/getters.h"
 #include "headers/validators.h"
+#include "headers/getters.h"
 #include "headers/actions.h"
 
 int main(){
@@ -27,8 +27,7 @@ int main(){
     Character *character;
     Land *land;
     Cord *randomCord;
-    unsigned short isInGame = 1;
-    unsigned short turnCounter = 0;
+    unsigned short isInGame = 1, turnCounter = 0, finishTurn;
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
 
@@ -61,10 +60,11 @@ int main(){
     do {
 
         character->aP += 5;
+        finishTurn = 0;
         
         do {
             
-            switch (mostrarMenuPrincipal(character)) {
+            switch (showMainMenu(character)) {
                 case 1:
                     // Ver mapa
                     clearScreen();
@@ -99,13 +99,34 @@ int main(){
                     break;
 
                 case 6:
-                    //Usar item
+                    // Usar item
                     clearScreen();
+                    land = getLandWithCord(map, askForCords());
+                    useItem(character, land);
+                    waitForKeyPress();
+                    break;
+
+                case 7:
+                    // Terminar turno
+                    clearScreen();
+                    if (confirm("terminar turno"))
+                        finishTurn = 1;
+
+                    waitForKeyPress();
+                    break;
+
+                case 8:
+                    // Inventario
+                    clearScreen();
+                    // showCharacterInventory(Character *C);
+                    inventoryActions(map, character);
+                    waitForKeyPress();
+                    break;                    
             }
 
             clearScreen();
             
-        } while (character->aP > 0);
+        } while (character->aP > 0 || finishTurn);
 
         turnCounter++;
 

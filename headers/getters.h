@@ -38,3 +38,13 @@ Skill* askForSkillToUse(Map *map, Character *C) {
 
   return C->skills[opt - 1]->skill;
 }
+
+unsigned short askForItem(Land *land) {
+
+  unsigned short opt;
+  printf("\nSelecciona el item que deseas recoger.\n");
+  printItems(land->items);
+
+  scanf("%d", &opt);
+  return opt;
+}
