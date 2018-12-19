@@ -59,7 +59,7 @@ void useItem (Character *attacker, Land *land) {
 
 
 // Review optimization
-void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
+Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
 
   if (skillCostsValidator(map, attacker, cord, skill)) {
@@ -68,12 +68,16 @@ void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
       skill->effect(getLandWithCord(map, cord));
       printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
+
+      return getLandWithCord(map, cord)->character;
     } else
       printf("\nLa habilidad fue esquivada.\n");
 
     reducePoints(attacker, skill);
   } else
     printf("No tienes los requisitos suficientes para atacar\n");
+
+  return NULL;
 
 } 
 

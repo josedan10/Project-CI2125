@@ -34,7 +34,7 @@ int main(){
 
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
-    Character *character;
+    Character *character, *isDead;
     Cord *randomCord;
     Land *land;
     unsigned short isInGame = 1, turnCounter = 0, notFinishTurn;
@@ -92,7 +92,7 @@ int main(){
                 case 3:
                     // Atacar
                     clearScreen();
-                    Character *isDead = attack(map, character);
+                    isDead = attack(map, character);
 
                     if (isDead != NULL) {
                         removeFromTurns(turns, isDead);
@@ -113,7 +113,14 @@ int main(){
                 case 5:
                     // Usar habilidad
                     clearScreen();
-                    useSkill(character, map, askForCords(), askForSkillToUse(map, character));
+                    isDead = useSkill(character, map, askForCords(), askForSkillToUse(map, character));
+
+                    if (isDead != NULL) {
+                        removeFromTurns(turns, isDead);
+                    }
+
+                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+                    
                     waitForKeyPress();
                     break;
 
@@ -160,9 +167,5 @@ int main(){
         waitForKeyPress();
     } while (isInGame);
     
-    #if SO == 1
-        system("PAUSE");
-    #endif
-
-    return 0;
+    waitForKeyPress();
 }
