@@ -49,8 +49,6 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
 
   addItemToInventory(myChar, itemNode->item);
   deleteFromLandListItems(land, itemNode);
-
-  printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
 
 Character* useItem (Character *attacker, Land *land) {
@@ -220,8 +218,15 @@ void showTopInventory (Character *C) {
 
 void getItemFromLand (Land *land, Character *C) {
   
-  if ((*land->items) != NULL)
-    pickItemFromLand(land, land->items[askForItem(land)]);
+  if ((*land->items) != NULL) {
+
+    unsigned short itemIndex = askForItem(land) - 1;
+    ItemNode *auxNode = (*land->items);
+
+    while (itemIndex != 0) auxNode = auxNode->next;
+
+    pickItemFromLand(land, auxNode);
+  }
   else
     printf("\nNo hay items en esta area\n");
 }

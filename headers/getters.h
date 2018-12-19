@@ -44,8 +44,8 @@ unsigned short askForItem(Land *land) {
 
   unsigned short opt;
   printf("\nSelecciona el item que deseas recoger.\n");
-  printItems(land->items);
+  printItems((*land->items));
 
-  scanf("%d", &opt);
+  scanf("%hu", &opt);
   return opt;
 }

@@ -58,7 +58,7 @@ int main(){
 
         // Random positions for players
         do {
-            randomCord = createCord(65 + rand() % (84 + 1 - 65), 1 + rand() % 10);
+            randomCord = createCord(65 + rand() % (84 + 1 - 65), 1 + rand() % 9);
 
         } while (!isFree(map, randomCord));
 
@@ -148,7 +148,7 @@ int main(){
                     if (confirm("terminar turno"))
                         notFinishTurn = 0;
 
-                    waitForKeyPress();
+                    // waitForKeyPress();
                     break;
 
                 case 8:

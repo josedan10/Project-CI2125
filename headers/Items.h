@@ -75,7 +75,7 @@ void createRandomItemsInMap (Map *map) {
   ItemNode *itemNode;
 
   for (unsigned short i = 0; i < totalItems; i++) {
-    randomLand = getLandWithCord(map, createCord((char) (rand() % 20 + 65), rand() % 10));
+    randomLand = getLandWithCord(map, createCord((char) (rand() % 20 + 65), rand() % 9 + 1));
     itemNode = createItemNode();
 
     switch (rand() % 3) {
