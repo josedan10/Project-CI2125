@@ -41,6 +41,8 @@ int main(){
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
 
+    createRandomItemsInMap(map);
+
     // User options;
     unsigned short opt;
 
@@ -127,8 +129,16 @@ int main(){
                 case 6:
                     // Usar item
                     clearScreen();
-                    land = getLandWithCord(map, askForCords());
-                    useItem(character, land);
+                    isDead =  useItem(character, getLandWithCord(map, askForCords()));
+
+                    if (isDead != NULL) {
+                        removeFromTurns(turns, isDead);
+                    }
+
+                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+                    
+                    waitForKeyPress();
+                    break;
                     waitForKeyPress();
                     break;
 
@@ -152,6 +162,7 @@ int main(){
                 case 9:
                     // Menu de sistema
                     notFinishTurn = resolveSystemMenu();
+                    isInGame = notFinishTurn;
                     break;
                     
             }
@@ -166,6 +177,8 @@ int main(){
         printf("\nHa terminado tu turno\n");
         waitForKeyPress();
     } while (isInGame);
+
+    printf("\n\nEl juego ha terminado\n");
     
     waitForKeyPress();
 }

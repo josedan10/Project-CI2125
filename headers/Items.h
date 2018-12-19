@@ -3,9 +3,6 @@ void heal(Land *land) {
   land->character->hP += land->character->hP * 0.3;
   printf("\n\nUsaste una pocion de salud");
 
-  // Delete itemNode
-  popItem(land->character->items);
-
 }
 
 Item* createHealthPotion () {
@@ -26,8 +23,6 @@ void restoreEnergy(Land *land) {
   land->character->eP += land->character->eP * 0.3;
   printf("\n\nUsaste una pocion de energia");
 
-  // Delete itemNode
-  popItem(land->character->items);
 }
 
 Item* createEnergyPotion () {
@@ -43,6 +38,12 @@ Item* createEnergyPotion () {
   return energyPotion;
 }
 
+void nullGrenade(Land *land) {
+  land->effect = none;
+  printf("\n\nUsaste una granada nulificadora");
+
+}
+
 Item* createNullGrenade () {
   Item *nullGrenade = (Item *) malloc(sizeof(Item));
 
@@ -55,14 +56,45 @@ Item* createNullGrenade () {
   return nullGrenade;
 }
 
-void nullGrenade(Land *land) {
-  land->effect = none;
-  printf("\n\nUsaste una granada nulificadora");
-
-  // Delete itemNode
-  popItem(land->character->items);
+ItemNode* createItemNode (){
+  ItemNode *node = (ItemNode *) malloc(sizeof(ItemNode));
+  node->item = NULL;
+  node->next = NULL;
+  return node;
 }
 
 Item* getTopItemFromInventory(HeapItems *items) {
   return (*items)->item;
+}
+
+void createRandomItemsInMap (Map *map) {
+  srand(time(NULL));
+
+  unsigned short totalItems = rand() % 14 + 1;
+  Land *randomLand;
+  ItemNode *itemNode;
+
+  for (unsigned short i = 0; i < totalItems; i++) {
+    randomLand = getLandWithCord(map, createCord((char) (rand() % 20 + 65), rand() % 10));
+    itemNode = createItemNode();
+
+    switch (rand() % 3) {
+      case 0:
+        // Pocion restauradora
+        itemNode->item = createHealthPotion();
+        break;
+
+      case 1:
+        // Pocion energizante
+        itemNode->item = createEnergyPotion();
+        break;
+
+      case 2:
+        // Granada nulificadora
+        itemNode->item = createNullGrenade();
+        break;
+    }
+
+    addItemsToLandList(randomLand, itemNode);
+  }
 }

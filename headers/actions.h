@@ -53,8 +53,32 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
   printf("\nSe ha guardado %s en tu inventario.\n", itemNode->item->name);
 }
 
-void useItem (Character *attacker, Land *land) {
-  getTopItemFromInventory(attacker->items);
+Character* useItem (Character *attacker, Land *land) {
+
+  if (isNotEmptyInventory(attacker->items)) {
+    Item *item = getTopItemFromInventory(attacker->items);
+
+    if (strcmp(item->name, "Restaurar")) {
+      item->effect(land);
+    } 
+    else {
+      
+      if (rand() % 100 > land->character->evasion) {
+        // No evadió
+        item->effect(land);
+        printf("\n%s fue afectado por %s\n", land->character->name, item->name);
+        return land->character;
+
+      } else {
+
+        printf("\nTu item fue evadido\n");
+      }
+    }
+  } else {
+    printf("\nNo tienes ningun item en el inventario\n");
+  }
+
+  return NULL;
 }
 
 
@@ -270,7 +294,7 @@ unsigned short resolveSystemMenu () {
       // Guardar
       break;
 
-    case 3:
+    case 4:
       // Salir
       
       return !confirm("salir del juego");
