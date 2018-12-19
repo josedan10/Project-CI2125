@@ -29,11 +29,18 @@ Cord* askForCords() {
 
 Skill* askForSkillToUse(Map *map, Character *C) {
 
-  unsigned short opt;
+  unsigned short opt, total;
+  char preValidator[2];
 
-  showCharacterSkills(map, C);
-  printf("\nSelecciona la habilidad que deseas usar: ");
-  scanf("%hu", &opt);
+  total = showCharacterSkills(map, C);
+
+  do {
+    printf("\nSelecciona la habilidad que deseas usar: ");
+    scanf("%s", preValidator);
+
+  } while (!inputIntValidator(preValidator) || inputRange(atoi(preValidator, 0, total)));
+
+  opt = atoi(preValidator);
 
   //TODO: Validate skill in list
 
@@ -44,7 +51,7 @@ unsigned short askForItem(Land *land) {
 
   unsigned short opt;
   printf("\nSelecciona el item que deseas recoger.\n");
-  printItems((*land->items));
+  printItems((*land->items), 2);
 
   scanf("%hu", &opt);
   return opt;

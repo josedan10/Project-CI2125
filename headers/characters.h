@@ -207,7 +207,7 @@ void changeCharacterPosition (Character *C, Land *land) {
 
 }
 
-void showCharacterSkills (Map *map, Character *C) {
+unsigned short showCharacterSkills (Map *map, Character *C) {
 
   showCharacterDetails(map, C);
   printf("Tus habilidades\n");
@@ -225,6 +225,8 @@ void showCharacterSkills (Map *map, Character *C) {
 
     auxNode = auxNode->next;
   }
+
+  return i;
 }
 
 unsigned short isNotEmptyInventory(HeapItems *items) {
