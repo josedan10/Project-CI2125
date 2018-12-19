@@ -1,7 +1,23 @@
-unsigned short skillCostsValidator (Character *C, Skill *skill) {
+unsigned short skillCostsValidator (Map *map, Character *attacker, Cord *cord, Skill *skill) {
 
-  // If this return 1 you can attack  
-  return (C->aP > skill->actionCost && C->eP > skill->energyCost);
+  unsigned short validator = 1;
+
+  // Primero se verifica que esté en el rango de ataque.
+
+  if (!isInRange(cord, getCharacterCords(map, attacker), skill->range)) {
+    printf("\nLa casilla esta fuera de rango.\n");
+    validator = 0;
+
+  } else if (isFree(map, cord)) {
+    printf("\nLa casilla que intentas atacar esta vacia.\n");
+    validator = 0;
+
+  } else if (attacker->aP > skill->actionCost && attacker->eP > skill->energyCost) {
+    printf("\nNo tienes los requisitos suficientes para atacar");
+    validator = 0;
+  }
+
+  return validator;
 }
 
 unsigned short attackValidator (Map *map, Character *C, Cord *targetCord) {

@@ -48,29 +48,21 @@ void useItem (Character *attacker, Land *land) {
 // Review optimization
 void useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
-  // Primero se verifica que esté en el rango de ataque.
 
-  if (!isInRange(cord, getCharacterCords(map, attacker), skill->range)) {
-    printf("\nLa casilla esta fuera de rango.\n");
-    return;
-  }
-  
-  // Para es la función isInRange
-  if (isFree(map, cord)) {
-    printf("\nLa casilla que intentas atacar esta vacia.\n");
-    return;
-  }
+  if (skillCostsValidator(map, attacker, cord, skill)) {
 
-  if (!skillCostsValidator(attacker, skill)) {
+    if (rand() % 100 > getLandWithCord(map, cord)->character->evasion) {
 
+      skill->effect(getLandWithCord(map, cord));
+      printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
+    } else
+      printf("\nLa habilidad fue esquivada.\n");
+
+    reducePoints(attacker, skill);
+  } else
     printf("No tienes los requisitos suficientes para atacar\n");
-    return;
-  }
 
-  skill->effect(getLandWithCord(map, cord));
-  reducePoints(attacker, skill);
-  printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
-}
+} 
 
 void printItems(ItemNode *itemNode) {
 

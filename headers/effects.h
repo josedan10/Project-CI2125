@@ -27,6 +27,7 @@ void freeze(Land *land) {
 void restore(Land *land) {
 	// Restaura el 30% de la salud
 	land->character->hP += land->character->hP * 0.3;
+	land->effect = typeRestore;
 }
 
 void electrocute(Land *land) {

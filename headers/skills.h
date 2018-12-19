@@ -29,7 +29,7 @@ Skill* createFireSkill(){               //Incendia la casilla objetivo y causa 3
     skill->energyCost = 2;
     skill->actionCost = 7;
     skill->range = 3;
-    skill->effect = restore;
+    skill->effect = fire;
 
     return skill;
 
