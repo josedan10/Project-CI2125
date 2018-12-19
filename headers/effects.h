@@ -37,17 +37,17 @@ void electrocute(Land *land) {
 }
 
 void fireDescription() {
-	printf("\nEsta habilidad causa un dano igual al 30% de la vida actual del objetivo\n");
+	printf("Esta habilidad causa un dano igual al 30%c de la vida actual del objetivo\n\n", '%');
 }
 
 void freezeDescription() {
-	printf("\nEsta habilidad elimina todos los puntos de accion del objetivo\n");
+	printf("Esta habilidad elimina todos los puntos de accion del objetivo\n\n");
 }
 
 void restoreDescription() {
-	printf("\nEsta habilidad restaura el 30% de la vida actual del jugador\n");
+	printf("Esta habilidad restaura el 30%c de la vida actual del jugador\n\n", '%');
 }
 
 void electrocuteDescription() {
-	printf("\nEsta habilidad disminuye el 50% de los puntos de energia del objetivo\n");
+	printf("Esta habilidad disminuye el 50%c de los puntos de energia del objetivo\n\n", '%');
 }

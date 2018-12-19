@@ -129,6 +129,7 @@ int hab;
     printf("4) Electrocutar\n");
     electrocuteDescription();
 
+    printf("Habilidad: ");
     scanf("%s", preValidator);
 
     if (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, 5)) {
@@ -142,27 +143,27 @@ int hab;
 
   switch (hab) {
     case 1:
-      printf("\nElegiste 'congelar'.\n");
+      printf("\nElegiste 'Congelar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createFreezeSkill());
       break;
 
     case 2:
-      printf("\nElegiste 'incendiar'.\n");
+      printf("\nElegiste 'Incendiar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createFireSkill());
 
       break;
     
     case 3:
-      printf("\nElegiste 'restaurar'.\n");
+      printf("\nElegiste 'Restaurar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createRestoreSkill());
 
       break;
     
     case 4:
-      printf("\nElegiste 'electrocutar'.\n");
+      printf("\nElegiste 'Electrocutar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createElectrocuteSkill());
 
