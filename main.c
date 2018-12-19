@@ -129,7 +129,7 @@ int main(){
                 case 6:
                     // Usar item
                     clearScreen();
-                    isDead =  useItem(character, getLandWithCord(map, askForCords()));
+                    isDead = useItem(map, character, askForCords());
 
                     if (isDead != NULL) {
                         removeFromTurns(turns, isDead);
