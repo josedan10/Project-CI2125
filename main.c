@@ -97,10 +97,14 @@ int main(){
                     isDead = attack(map, character);
 
                     if (isDead != NULL) {
-                        removeFromTurns(turns, isDead);
+                        removeFromTurns(&turns, isDead);
                     }
 
-                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+                    if (turns->tam == 1) {
+                        printf("\nEL GANADOR ES %s\n", character->name);
+                        isInGame = 0;
+                        notFinishTurn = 0;
+                    }
 
                     waitForKeyPress();
                     break;
@@ -118,10 +122,14 @@ int main(){
                     isDead = useSkill(character, map, askForCords(), askForSkillToUse(map, character));
 
                     if (isDead != NULL) {
-                        removeFromTurns(turns, isDead);
+                        removeFromTurns(&turns, isDead);
                     }
 
-                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+                    if (turns->tam == 1) {
+                        printf("\nEL GANADOR ES %s\n", character->name);
+                        isInGame = 0;
+                        notFinishTurn = 0;
+                    }
                     
                     waitForKeyPress();
                     break;
@@ -132,13 +140,15 @@ int main(){
                     isDead = useItem(map, character, askForCords());
 
                     if (isDead != NULL) {
-                        removeFromTurns(turns, isDead);
+                        removeFromTurns(&turns, isDead);
                     }
 
-                    if (turns->tam == 1) printf("\nEL GANADOR ES %s\n", character->name);
+                    if (turns->tam == 1) {
+                        printf("\nEL GANADOR ES %s\n", character->name);
+                        isInGame = 0;
+                        notFinishTurn = 0;
+                    }
                     
-                    waitForKeyPress();
-                    break;
                     waitForKeyPress();
                     break;
 

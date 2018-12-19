@@ -38,7 +38,7 @@ Skill* askForSkillToUse(Map *map, Character *C) {
     printf("\nSelecciona la habilidad que deseas usar: ");
     scanf("%s", preValidator);
 
-  } while (!inputIntValidator(preValidator) || inputRange(atoi(preValidator, 0, total)));
+  } while (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, total));
 
   opt = atoi(preValidator);
 

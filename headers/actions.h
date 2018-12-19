@@ -70,7 +70,6 @@ Character* useItem (Map *map, Character *attacker, Cord *cord) {
         // No evadió
         item->effect(land);
         printf("\n%s fue afectado por %s\n", land->character->name, item->name);
-        return (land->character->hP <= 0) ? land->character : NULL;
 
       } else {
 
@@ -79,9 +78,11 @@ Character* useItem (Map *map, Character *attacker, Cord *cord) {
     }
 
     reduceItemPoints(attacker, item);
+    return (land->character->hP <= 0) ? land->character : NULL;
   }
 
   return NULL;
+
 }
 
 
@@ -96,7 +97,6 @@ Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
       skill->effect(getLandWithCord(map, cord));
       printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
 
-      return (getLandWithCord(map, cord)->character->hP <= 0) ? getLandWithCord(map, cord)->character : NULL ;
     } else
       printf("\nLa habilidad fue esquivada.\n");
 
@@ -104,7 +104,7 @@ Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
   } else
     printf("No tienes los requisitos suficientes para atacar\n");
 
-  return NULL;
+  return (getLandWithCord(map, cord)->character->hP <= 0) ? getLandWithCord(map, cord)->character : NULL ;
 
 } 
 
@@ -305,22 +305,22 @@ void inventoryActions (Map *map, Character *C) {
   } while (opt != 5);
 }
 
-void removeFromTurns (CharsListR turns, Character *C) {
+void removeFromTurns (CharsListR *turns, Character *C) {
   
   unsigned short i = 0;
-  Character *auxChar = turns->chars[i];
+  Character *auxChar = (*turns)->chars[i];
 
   while (auxChar != C) {
-    auxChar = turns->chars[++i];
+    auxChar = (*turns)->chars[++i];
   }
 
-  while (i < turns->omega) {
-    turns[i] = turns[i + 1];
+  while (i < (*turns)->omega) {
+    (*turns)->chars[i] = (*turns)->chars[i + 1];
     i++;
   }
 
-  turns->omega--;
-  turns->tam--;
+  (*turns)->omega--;
+  (*turns)->tam--;
 }
 
 unsigned short resolveSystemMenu () {

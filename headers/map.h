@@ -83,6 +83,6 @@ void printMap (Map *map) {
 
 unsigned short isInRange(Cord *target, Cord *cord, unsigned short range) {
 
-  return range >= abs(target->col - cord->col) && range > abs(target->row - cord->row);
+  return range >= abs(target->col - cord->col) && range >= abs(target->row - cord->row);
 
 }
