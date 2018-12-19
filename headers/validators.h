@@ -59,3 +59,15 @@ unsigned short movementValidator (Map *map, Cord *actual, Cord *destiny, Charact
    
   return 1;
 }
+
+unsigned short inputIntValidator (char *a) {
+  int max = strlen(a), i;
+
+  while (i < max && isdigit(a[i])) i++;
+
+  return i == max;
+}
+
+unsigned short inputRange (int i, int limitInf, int limitSup) {
+  return i > limitInf && i < limitSup;
+}

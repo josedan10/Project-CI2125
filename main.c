@@ -3,11 +3,21 @@
 #include <math.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 
 #define ASCII_A 65
 #define ASCII_T 84
-
 #include "headers/soHelpers.h"
+
+void waitForKeyPress() {
+  #if SO == 1
+    system("PAUSE");  
+  #endif 
+}
+
+unsigned short inputIntValidator(char *);
+unsigned short inputRange(int, int, int);
+
 #include "headers/structs.h"
 #include "headers/effects.h"
 #include "headers/skills.h"
@@ -15,8 +25,8 @@
 #include "headers/land.h"
 #include "headers/map.h"
 #include "headers/items.h"
-#include "headers/menus.h"
 #include "headers/validators.h"
+#include "headers/menus.h"
 #include "headers/getters.h"
 #include "headers/actions.h"
 
@@ -25,8 +35,8 @@ int main(){
 	printf("Bienvenido a JUEGUITO :v\n\n");
 
     Character *character;
-    Land *land;
     Cord *randomCord;
+    Land *land;
     unsigned short isInGame = 1, turnCounter = 0, notFinishTurn;
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
@@ -130,9 +140,14 @@ int main(){
                     // showCharacterInventory(Character *C);
                     inventoryActions(map, character);
                     waitForKeyPress();
-                    break;                    
+                    break;
+
+                case 9:
+                    // Menu de sistema
+                    notFinishTurn = resolveSystemMenu();
+                    break;
+                    
             }
-            clearScreen();
             
         } while (character->aP > 0 && notFinishTurn);
 
@@ -141,7 +156,8 @@ int main(){
         if (turnCounter == turns->capacity) turnCounter = turns->alfa;
 
         character = turns->chars[turnCounter];
-        // waitForKeyPress();
+        printf("\nHa terminado tu turno\n");
+        waitForKeyPress();
     } while (isInGame);
     
     #if SO == 1

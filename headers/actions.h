@@ -1,8 +1,21 @@
 unsigned short startGame () {
 	unsigned short players;
-	printf("Introduzca el numero de jugadores: ");
-	scanf("%hu", &players);
+  char preValidator[5]; 
 
+  do {
+	  printf("Introduzca el numero de jugadores: ");
+    scanf("%s", preValidator);
+
+    if (!inputIntValidator(preValidator)) {
+      printf("\nERROR: Debes un introducir un numero\n");
+      waitForKeyPress();
+    }
+
+    clearScreen();
+
+  } while (!inputIntValidator(preValidator));
+
+	players = atoi(preValidator);
 	return players;
 }
 
@@ -117,12 +130,6 @@ void moveCharacterToCords(Map* map, Character *C, Cord *destinyCords) {
 
     printf("\n\nDesplazamiento realizado a las coordenadas (%hu, %c).\n", destinyCords->row + 1, destinyCords->col);
   }
-}
-
-void waitForKeyPress() {
-  #if SO == 1
-    system("PAUSE");  
-  #endif 
 }
 
 Character* executeAttack (Character *C, Land *land) {
@@ -247,4 +254,23 @@ void removeFromTurns (CharsListR turns, Character *C) {
 
   turns->omega--;
   turns->tam--;
+}
+
+unsigned short resolveSystemMenu () {
+  switch(clearAndPrintMenu(showSystemMenu)) {
+    case 1:
+      // Cargar
+      break;
+    
+    case 2:
+      // Guardar
+      break;
+
+    case 3:
+      // Salir
+      
+      return !confirm("salir del juego");
+      break;
+
+  }
 }

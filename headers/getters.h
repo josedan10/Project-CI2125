@@ -3,6 +3,7 @@ Cord* askForCords() {
   unsigned short row;
 
   do {
+    printf("\nIntroduce las coordenadas\n\n");
     printf("\nFila (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)\n");
     
     printf("Fila: ");

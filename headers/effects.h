@@ -35,3 +35,19 @@ void electrocute(Land *land) {
 	land->character->eP -= ceil(land->character->eP / 2);
 	land->effect = typeElectrocute;
 }
+
+void fireDescription() {
+	printf("\nEsta habilidad causa un dano igual al 30% de la vida actual del objetivo\n");
+}
+
+void freezeDescription() {
+	printf("\nEsta habilidad elimina todos los puntos de accion del objetivo\n");
+}
+
+void restoreDescription() {
+	printf("\nEsta habilidad restaura el 30% de la vida actual del jugador\n");
+}
+
+void electrocuteDescription() {
+	printf("\nEsta habilidad disminuye el 50% de los puntos de energia del objetivo\n");
+}

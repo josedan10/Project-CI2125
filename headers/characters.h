@@ -94,6 +94,7 @@ Character* createNewCharacter (unsigned int velocity) {
 void queuePlayer (Character *C, CharsListR CList) {
 int hab;
   Character *newChar = (Character *) malloc(sizeof(Character));
+  char preValidator [2];
 
   //Clon the Character
   strcpy(newChar->name, C->name);
@@ -114,13 +115,30 @@ int hab;
 
   // Create character habilities asignation
 
-  printf("\nElige una habilidad\n");
-  printf("1) Congelar\n2) Incendiar\n3) Restaurar\n4) Electrocutar\n");
+  do {
+    printf("\nElige una habilidad\n");
+    printf("1) Congelar\n");
+    freezeDescription();
 
-  scanf("%d", &hab);
-  // scanf("%d", &hab);
+    printf("2) Incendiar\n");
+    fireDescription();
 
-  printf("%d\n", hab);
+    printf("3) Restaurar\n");
+    restoreDescription();
+
+    printf("4) Electrocutar\n");
+    electrocuteDescription();
+
+    scanf("%s", preValidator);
+
+    if (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, 5)) {
+      printf("\n\nERROR: Opcion no permitida\n");
+      waitForKeyPress();
+    }
+
+  } while (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, 5));
+
+  hab = atoi(preValidator);
 
   switch (hab) {
     case 1:
@@ -147,13 +165,6 @@ int hab;
       printf("\nElegiste 'electrocutar'.\n");
       // Crear nueva habilidad
       addToSkills(newChar, createElectrocuteSkill());
-
-      break;
-    
-    default:
-      printf("\nNo elegiste ninguna habilidad.\n");
-
-      // Crear nueva habilidad
 
       break;
   }
