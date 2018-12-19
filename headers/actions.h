@@ -43,6 +43,10 @@ void dropItemToLand (Character *C, Land *land) {
 
 }
 
+void reduceItemPoints (Character *C, Item *item) {
+  C->aP -= item->cost;
+}
+
 // Pre: itemNode must be in land->items
 void pickItemFromLand (Land *land, ItemNode *itemNode) {
   Character *myChar = land->character;
@@ -51,10 +55,11 @@ void pickItemFromLand (Land *land, ItemNode *itemNode) {
   deleteFromLandListItems(land, itemNode);
 }
 
-Character* useItem (Character *attacker, Land *land) {
+Character* useItem (Map *map, Character *attacker, Cord *cord) {
 
-  if (isNotEmptyInventory(attacker->items)) {
+  if (itemValidator(map, attacker, cord)) {
     Item *item = getTopItemFromInventory(attacker->items);
+    Land *land = getLandWithCord(map, cord);
 
     if (strcmp(item->name, "Restaurar")) {
       item->effect(land);
@@ -65,15 +70,15 @@ Character* useItem (Character *attacker, Land *land) {
         // No evadió
         item->effect(land);
         printf("\n%s fue afectado por %s\n", land->character->name, item->name);
-        return land->character;
+        return (land->character->hP <= 0) ? land->character : NULL;
 
       } else {
 
         printf("\nTu item fue evadido\n");
       }
     }
-  } else {
-    printf("\nNo tienes ningun item en el inventario\n");
+
+    reduceItemPoints(attacker, item);
   }
 
   return NULL;
@@ -91,7 +96,7 @@ Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
       skill->effect(getLandWithCord(map, cord));
       printf("\nAtacaste al jugador %s.\n", getLandWithCord(map, cord)->character->name);
 
-      return getLandWithCord(map, cord)->character;
+      return (getLandWithCord(map, cord)->character->hP <= 0) ? getLandWithCord(map, cord)->character : NULL ;
     } else
       printf("\nLa habilidad fue esquivada.\n");
 
@@ -103,19 +108,48 @@ Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
 
 } 
 
-void printItems(ItemNode *itemNode) {
+void printItems(ItemNode *itemNode, unsigned short type) {
+  unsigned short i = 1;
 
-  if (itemNode == NULL) {
-    printf("[ ]\n\n");
-  } else {
-    ItemNode *aux = itemNode;
+  switch (type) {
+    case 1:
 
-    printf("[ ");
+      if (itemNode == NULL) {
+        printf("[ ]\n\n");
+      } else {
+        ItemNode *aux = itemNode;
 
-    while (aux->next != NULL) printf("%s, ", aux->item->name);
+        printf("[ ");
 
-    printf("%s ]\n\n", aux->item->name);
+        while (aux->next != NULL) {
 
+          if (i % 6 == 0)
+            printf("%s,\n", aux->item->name);
+          else
+            printf("%s, ", aux->item->name);
+        }
+
+        printf("%s ]\n\n", aux->item->name);
+
+      }
+      break;
+    
+    default:
+
+      if (itemNode == NULL) {
+        printf("No hay items\n\n");
+      } else {
+        ItemNode *aux = itemNode;
+
+        printf("Lista de items\n");
+        printf("______________\n");
+
+        while (aux->next != NULL) printf("\t%d) %s\n",i++, aux->item->name);
+        printf("\t%d) %s\n",i++, aux->item->name);
+
+      }
+
+      break;
   }
 }
 
