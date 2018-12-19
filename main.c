@@ -68,7 +68,7 @@ int main(){
                 case 1:
                     // Ver mapa
                     clearScreen();
-                    // printMap();
+                    printMap(map);
                     waitForKeyPress();
                     break;
 

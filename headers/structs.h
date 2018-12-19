@@ -14,7 +14,7 @@ typedef ItemNode *ListItems;
 typedef ItemNode *HeapItems;
 
 typedef enum typeEffect{
-	none, typeFire, typeFreeze, typeElectrocute
+	none, typeFire, typeFreeze, typeElectrocute, typeRestore
 } TypeEffect;
 
 typedef struct land {

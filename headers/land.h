@@ -5,7 +5,8 @@ Land* createLand () {
 	l->items = (ListItems *) malloc(sizeof(ListItems));
 	(*l->items) = NULL;
 	l->character = NULL;
-
+	l->effect = none;
+	
 	return l;
 }
 
