@@ -71,7 +71,7 @@ void seeLand (Map *map, Cord *cord) {
 
   printf("Items\n");
   printf("_____\n\n");
-  printItems((*land->items));
+  printItems((*land->items), 1);
 
   printf("Efectos\n");
   printf("_______\n\n");
