@@ -44,8 +44,6 @@ int main(){
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
 
-    createRandomItemsInMap(map);
-
     // User options;
     unsigned short opt;
 
@@ -184,7 +182,10 @@ int main(){
 
         turnCounter++;
 
-        if (turnCounter == turns->tam) turnCounter = turns->alfa;
+        if (turnCounter == turns->tam){
+          createRandomItemsInMap(map);
+          turnCounter = turns->alfa;
+        } 
 
         character = turns->chars[turnCounter];
         printf("\nHa terminado tu turno\n");
