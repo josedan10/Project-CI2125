@@ -95,6 +95,19 @@ void createRandomItemsInMap (Map *map) {
         break;
     }
 
+    itemNode->next = NULL;
+
     addItemsToLandList(randomLand, itemNode);
   }
+}
+
+unsigned short totalItems (ItemNode *item) {
+  unsigned short i = 0;
+
+  while (item != NULL) {
+    item = item->next;
+    i++;
+  }
+
+  return i;
 }

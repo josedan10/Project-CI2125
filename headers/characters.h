@@ -92,7 +92,7 @@ Character* createNewCharacter (unsigned int velocity) {
 }
 
 void queuePlayer (Character *C, CharsListR CList) {
-int hab;
+  int hab;
   Character *newChar = (Character *) malloc(sizeof(Character));
   char preValidator [2];
 
@@ -236,15 +236,3 @@ unsigned short isNotEmptyInventory(HeapItems *items) {
 unsigned short isAlive(Character *C) {
   return C->hP > 0;
 }
-
-// void showCharacterInventory (Character C*) {
-//   printf("Inventario\n");
-//   printf("__________\n");
-
-//   ItemNode *auxNode = (*C->items);
-
-//   while (auxNode != NULL) {
-//     printf("- ")
-//   }
-  
-// }

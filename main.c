@@ -43,6 +43,7 @@ int main(){
     unsigned short isInGame = 1, turnCounter = 0, notFinishTurn;
     CharsListR turns = createNewCharsListR(startGame());
     Map *map = createMap();
+    createRandomItemsInMap(map);
 
     // User options;
     unsigned short opt;
@@ -167,7 +168,6 @@ int main(){
                     clearScreen();
                     // showCharacterInventory(Character *C);
                     inventoryActions(map, character);
-                    waitForKeyPress();
                     break;
 
                 case 9:

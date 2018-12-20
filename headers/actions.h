@@ -19,13 +19,11 @@ unsigned short startGame () {
 	return players;
 }
 
-void addItemToInventory (Character *C, Item *item) {
-  ItemNode *node = (ItemNode *) malloc(sizeof(ItemNode));
-  node->item = item;
+void addItemToInventory (Character *C, ItemNode *node) {
   node->next = *C->items;
   *C->items = node;
 
-  printf("\nSe ha agregado %s a tu inventario.\n", item->name);
+  printf("\nSe ha agregado %s a tu inventario.\n", node->item->name);
 }
 
 void dropItemToLand (Character *C, Land *land) {
@@ -48,11 +46,20 @@ void reduceItemPoints (Character *C, Item *item) {
 }
 
 // Pre: itemNode must be in land->items
-void pickItemFromLand (Land *land, ItemNode *itemNode) {
+void pickItemFromLand (Land *land, ItemNode *itemNode, unsigned short isFirst) {
   Character *myChar = land->character;
+  ItemNode *inventoryItem = createItemNode();
 
-  addItemToInventory(myChar, itemNode->item);
-  deleteFromLandListItems(land, itemNode);
+  if (isFirst)
+    inventoryItem->item = itemNode->item;
+  else
+    inventoryItem->item = itemNode->next->item;
+
+  inventoryItem->next = NULL;
+
+  deleteFromLandListItems(land, itemNode, isFirst);
+  addItemToInventory(myChar, inventoryItem);
+
 }
 
 Character* useItem (Map *map, Character *attacker, Cord *cord) {
@@ -104,7 +111,7 @@ Character* useSkill (Character *attacker, Map *map, Cord *cord, Skill *skill) {
   } else
     printf("No tienes los requisitos suficientes para atacar\n");
 
-  return (getLandWithCord(map, cord)->character->hP <= 0) ? getLandWithCord(map, cord)->character : NULL ;
+  return (getLandWithCord(map, cord)->character != NULL && getLandWithCord(map, cord)->character->hP <= 0) ? getLandWithCord(map, cord)->character : NULL ;
 
 } 
 
@@ -127,6 +134,8 @@ void printItems(ItemNode *itemNode, unsigned short type) {
             printf("%s,\n", aux->item->name);
           else
             printf("%s, ", aux->item->name);
+
+          aux = aux->next;
         }
 
         printf("%s ]\n\n", aux->item->name);
@@ -144,7 +153,11 @@ void printItems(ItemNode *itemNode, unsigned short type) {
         printf("Lista de items\n");
         printf("______________\n");
 
-        while (aux->next != NULL) printf("\t%d) %s\n",i++, aux->item->name);
+        while (aux->next != NULL) {
+          printf("\t%d) %s\n",i++, aux->item->name);
+          aux = aux->next;
+        }
+
         printf("\t%d) %s\n",i++, aux->item->name);
 
       }
@@ -255,11 +268,32 @@ void getItemFromLand (Land *land, Character *C) {
   if ((*land->items) != NULL) {
 
     unsigned short itemIndex = askForItem(land) - 1;
+    ItemNode *itemAuxNode = (*land->items);
     ItemNode *auxNode = (*land->items);
 
-    while (itemIndex != 0) auxNode = auxNode->next;
 
-    pickItemFromLand(land, auxNode);
+    switch (itemIndex) {
+      case 0:
+        // Esta de primero
+        pickItemFromLand(land, itemAuxNode, 1);
+        break;
+
+      default:
+
+        while (itemIndex != 0) {
+          itemAuxNode = itemAuxNode->next;
+          itemIndex--;
+        }
+
+        while (itemAuxNode != auxNode->next) auxNode = auxNode->next;
+
+        pickItemFromLand(land, auxNode, 0);
+
+        break;
+    }
+
+    
+    
   }
   else
     printf("\nNo hay items en esta area\n");
@@ -321,7 +355,8 @@ void removeFromTurns (Map *map, CharsListR *turns, Character *C) {
 
   (*turns)->omega--;
   (*turns)->tam--;
-
+  
+  free(C);
   getLandWithCord(map, getCharacterCords(map, C))->character = NULL;
 }
 

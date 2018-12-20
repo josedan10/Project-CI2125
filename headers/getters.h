@@ -64,9 +64,23 @@ Skill* askForSkillToUse(Map *map, Character *C) {
 unsigned short askForItem(Land *land) {
 
   unsigned short opt;
-  printf("\nSelecciona el item que deseas recoger.\n");
-  printItems((*land->items), 2);
+  char preValidator[2];
+  unsigned short total = totalItems((*land->items));
 
-  scanf("%hu", &opt);
+  do {
+    printf("\nSelecciona el item que deseas recoger.\n");
+    printItems((*land->items), 2);
+
+    scanf("%s", preValidator);
+
+    if (!inputIntValidator(preValidator) || !inputRange( atoi(preValidator), 0, total + 1)) {
+      printf("\nERROR: entrada no valida\n");
+      waitForKeyPress();
+    }
+
+  } while (!inputIntValidator(preValidator) || !inputRange( atoi(preValidator), 0, total + 1));
+  
+  opt = atoi(preValidator);
+
   return opt;
 }
