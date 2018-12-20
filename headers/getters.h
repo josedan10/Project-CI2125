@@ -1,26 +1,37 @@
 Cord* askForCords() {
   char col;
   unsigned short row;
+  unsigned short i;
+  char preValidator[2];
 
   do {
     printf("\nIntroduce las coordenadas\n\n");
-    printf("\nFila (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)\n");
+    printf("\nFila ( ");
+    for (i = 1; i <= 9; i++) printf("%d, ", i);
+    printf("%d )\n", i);
     
     printf("Fila: ");
     // scanf("%d");
-    scanf("%d", &row);
+    scanf("%s", preValidator);
+    
+    if (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, 11))
+      printf("\n\nERROR: caracter no valido o fuera de rango\n");
 
-  } while (row < 1 || row > 10);
+  } while (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, 11));
 
   do {
-    printf("\nPor favor Ingrese las coordenadas\n");
-    printf("\nColumnas (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T)\n");
+    printf("\nColumnas ( \n");
+    for (i = 65; i < 84; i++) printf("%c, ", i);
+    printf("%c )\n", i);
 
     printf("Columna: ");
     scanf("%d");
     scanf("%c", &col);
 
-  } while (col < ASCII_A || col > ASCII_T);
+  } while (!isColCord(col));
+
+  col = toupper(col);
+  row = atoi(preValidator);
 
   Cord *cord = createCord(col, row);
 
@@ -38,7 +49,10 @@ Skill* askForSkillToUse(Map *map, Character *C) {
     printf("\nSelecciona la habilidad que deseas usar: ");
     scanf("%s", preValidator);
 
-  } while (!inputIntValidator(preValidator) || !inputRange(atoi(preValidator), 0, total));
+    if (!inputIntValidator(preValidator) || !inputRange( atoi(preValidator), 0, total + 1))
+      printf("\nERROR: los valores ingresados no corresponden a una habilidad disponible\n");    
+
+  } while (!inputIntValidator(preValidator) || !inputRange( atoi(preValidator), 0, total + 1));
 
   opt = atoi(preValidator);
 

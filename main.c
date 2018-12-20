@@ -7,6 +7,9 @@
 
 #define ASCII_A 65
 #define ASCII_T 84
+#define ASCII_a 97
+#define ASCII_t 116
+
 #include "headers/soHelpers.h"
 
 void waitForKeyPress() {
@@ -97,7 +100,7 @@ int main(){
                     isDead = attack(map, character);
 
                     if (isDead != NULL) {
-                        removeFromTurns(&turns, isDead);
+                        removeFromTurns(map, &turns, isDead);
                     }
 
                     if (turns->tam == 1) {
@@ -122,7 +125,7 @@ int main(){
                     isDead = useSkill(character, map, askForCords(), askForSkillToUse(map, character));
 
                     if (isDead != NULL) {
-                        removeFromTurns(&turns, isDead);
+                        removeFromTurns(map, &turns, isDead);
                     }
 
                     if (turns->tam == 1) {
@@ -140,7 +143,7 @@ int main(){
                     isDead = useItem(map, character, askForCords());
 
                     if (isDead != NULL) {
-                        removeFromTurns(&turns, isDead);
+                        removeFromTurns(map, &turns, isDead);
                     }
 
                     if (turns->tam == 1) {
@@ -181,7 +184,7 @@ int main(){
 
         turnCounter++;
 
-        if (turnCounter == turns->capacity) turnCounter = turns->alfa;
+        if (turnCounter == turns->tam) turnCounter = turns->alfa;
 
         character = turns->chars[turnCounter];
         printf("\nHa terminado tu turno\n");

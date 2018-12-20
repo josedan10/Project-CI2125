@@ -12,7 +12,7 @@ unsigned short skillCostsValidator (Map *map, Character *attacker, Cord *cord, S
     printf("\nLa casilla que intentas atacar esta vacia.\n");
     validator = 0;
 
-  } else if (attacker->aP < skill->actionCost && attacker->eP < skill->energyCost) {
+  } else if (attacker->aP < skill->actionCost || attacker->eP < skill->energyCost) {
     printf("\nNo tienes los requisitos suficientes para atacar");
     validator = 0;
   }
@@ -67,7 +67,7 @@ unsigned short itemValidator (Map *map, Character *C, Cord *targetCord) {
     printf("\nTu inventario esta vacio\n");
     validator = 0;
 
-  } else if (!isInRange(getCharacterCords(map, C), targetCord, (*C->items)->item->range)) {
+  } else if (!isInRange(getCharacterCords(map, C), targetCord, (*C->items)->item->range + 1)) {
     printf("\nLa casilla elegida no esta en el rango de uso del item\n");
     validator = 0;
   } else if ((*C->items)->item->cost > C->aP) {
@@ -88,4 +88,8 @@ unsigned short inputIntValidator (char *a) {
 
 unsigned short inputRange (int i, int limitInf, int limitSup) {
   return i > limitInf && i < limitSup;
+}
+
+unsigned short isColCord (char col) {
+  return (col >= ASCII_A && col <= ASCII_T) || (col >= ASCII_a && col <= ASCII_t);
 }

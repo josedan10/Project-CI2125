@@ -305,7 +305,7 @@ void inventoryActions (Map *map, Character *C) {
   } while (opt != 5);
 }
 
-void removeFromTurns (CharsListR *turns, Character *C) {
+void removeFromTurns (Map *map, CharsListR *turns, Character *C) {
   
   unsigned short i = 0;
   Character *auxChar = (*turns)->chars[i];
@@ -321,6 +321,8 @@ void removeFromTurns (CharsListR *turns, Character *C) {
 
   (*turns)->omega--;
   (*turns)->tam--;
+
+  getLandWithCord(map, getCharacterCords(map, C))->character = NULL;
 }
 
 unsigned short resolveSystemMenu () {

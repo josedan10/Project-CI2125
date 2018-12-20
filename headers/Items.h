@@ -51,7 +51,7 @@ Item* createNullGrenade () {
   strcpy(nullGrenade->name, "Granada nulificadora");
   nullGrenade->range = 5;
   nullGrenade->cost = 5;
-  nullGrenade->effect = none;
+  nullGrenade->effect = nullGrenade;
 
   return nullGrenade;
 }
