@@ -45,15 +45,15 @@ void nullGrenade(Land *land) {
 }
 
 Item* createNullGrenade () {
-  Item *nullGrenade = (Item *) malloc(sizeof(Item));
+  Item *grenade = (Item *) malloc(sizeof(Item));
 
 
-  strcpy(nullGrenade->name, "Granada nulificadora");
-  nullGrenade->range = 5;
-  nullGrenade->cost = 5;
-  nullGrenade->effect = nullGrenade;
+  strcpy(grenade->name, "Granada nulificadora");
+  grenade->range = 5;
+  grenade->cost = 5;
+  grenade->effect = nullGrenade;
 
-  return nullGrenade;
+  return grenade;
 }
 
 ItemNode* createItemNode (){
@@ -70,7 +70,7 @@ Item* getTopItemFromInventory(HeapItems *items) {
 void createRandomItemsInMap (Map *map) {
   srand(time(NULL));
 
-  unsigned short totalItems = rand() % 14 + 1;
+  unsigned short totalItems = rand() % 15 + 1;
   Land *randomLand;
   ItemNode *itemNode;
 
