@@ -51,7 +51,7 @@ unsigned short movementValidator (Map *map, Cord *actual, Cord *destiny, Charact
     printf("\n\nMOVIMIENTO NO PERMITIDO: No puedes moverte a estas coordenadas. Ya hay un jugador en ese lugar.\n");
     return 0;
 
-  } else if (abs(actual->col - destiny->col) || abs(actual->row - destiny->row) > C->aP) {
+  } else if (abs(actual->col - destiny->col) && abs(actual->row - destiny->row) > C->aP) {
     printf("\n\nMOVIMIENTO NO PERMITIDO: Necesitas mas puntos de accion\n");
     return 0;
 
