@@ -180,7 +180,7 @@ void moveCharacterToCords(Map* map, Character *C, Cord *destinyCords) {
   if (movementValidator(map, actualCord, destinyCords, C)) {
 
     if (actualCord != NULL){
-      C->aP -= abs(actualCord->col - destinyCords->col) + abs(actualCord->row - destinyCords->row);
+      C->aP -= (abs(actualCord->col - destinyCords->col) > abs(actualCord->row - destinyCords->row)) ? abs(actualCord->col - destinyCords->col) : abs(actualCord->row - destinyCords->row);
       getLandWithCord(map, actualCord)->character = NULL;
     
     }
@@ -342,4 +342,52 @@ unsigned short resolveSystemMenu () {
       break;
 
   }
+}
+
+Character* cloneCharacter (Character *C) {
+  Character *auxChar = (Character *) malloc(sizeof(Character));
+
+  strcpy(auxChar->name, C->name);
+  auxChar->aP = C->aP;
+  auxChar->armor = C->armor;
+  auxChar->damage = C->damage;
+  auxChar->eP = C->eP;
+  auxChar->evasion = auxChar->evasion;
+  auxChar->hP = C->hP;
+  auxChar->items = C->items;
+  auxChar->playerId = C->playerId;
+  auxChar->range = C->range;
+  auxChar->skills = C->skills;
+  auxChar->velocity = C->velocity;
+
+  return auxChar;
+}
+
+void swap(Character *C1, Character *C2) {
+  Character *auxCharacter = cloneCharacter(C1);
+  C1 = C2;
+  C2 = cloneCharacter(auxCharacter);
+  free(auxCharacter);
+}
+
+void orderTurns (CharsListR *turns) {
+  unsigned short n = (*turns)->tam, j;
+
+  for (unsigned short i = 1; i < n; i++) {
+
+    // insert i'th element A[i] into the already sorted A[1...i-1]
+
+    // keep swapping the value in A[i] with previous element 
+    // till it "bubbles" down the right place
+    // (i.e. keep swapping till the previos element is smaller)
+
+    j = i;
+
+    while (j > 0 && (*turns)->chars[j - 1]->velocity > (*turns)->chars[j]->velocity) { // when i=1 there is no prev element
+      swap( (*turns)->chars[j], (*turns)->chars[j - 1] );
+      j--;
+
+    } 
+  }
+
 }
